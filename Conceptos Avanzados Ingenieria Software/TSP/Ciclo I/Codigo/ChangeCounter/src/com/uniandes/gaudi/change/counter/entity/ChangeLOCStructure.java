@@ -21,14 +21,6 @@ public class ChangeLOCStructure extends FileStructure {
 	 */
 	private Integer changeNumber;
 	/**
-	 * Represents the change reason
-	 */
-	private String changeReason;
-	/**
-	 * Represents the person who modified the program 
-	 */
-	private String modifiedBy;
-	/**
 	 * Represents the total loc for this structure
 	 */
 	private Integer total;
@@ -63,30 +55,6 @@ public class ChangeLOCStructure extends FileStructure {
 	 */
 	public void setChangeNumber(Integer changeNumber) {
 		this.changeNumber = changeNumber;
-	}
-	/**
-	 * @return the changeReason
-	 */
-	public String getChangeReason() {
-		return changeReason;
-	}
-	/**
-	 * @param changeReason the changeReason to set
-	 */
-	public void setChangeReason(String changeReason) {
-		this.changeReason = changeReason;
-	}
-	/**
-	 * @return the modifiedBy
-	 */
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-	/**
-	 * @param modifiedBy the modifiedBy to set
-	 */
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
 	}
 	/**
 	 * @return the total
