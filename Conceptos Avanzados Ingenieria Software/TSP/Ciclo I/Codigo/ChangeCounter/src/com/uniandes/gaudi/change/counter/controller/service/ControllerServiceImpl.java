@@ -1,7 +1,17 @@
 package com.uniandes.gaudi.change.counter.controller.service;
 
+import com.uniandes.gaudi.change.counter.analyzer.exception.AnalyzerServiceException;
+import com.uniandes.gaudi.change.counter.analyzer.service.AnalyzerService;
 import com.uniandes.gaudi.change.counter.controller.exception.ControllerServiceException;
+import com.uniandes.gaudi.change.counter.entity.ChangeLOCStructure;
 import com.uniandes.gaudi.change.counter.entity.CompareInfo;
+import com.uniandes.gaudi.change.counter.entity.LOCFileStructure;
+import com.uniandes.gaudi.change.counter.entity.Language;
+import com.uniandes.gaudi.change.counter.factory.ServiceAbstractFactory;
+import com.uniandes.gaudi.change.counter.file.exception.FileServiceException;
+import com.uniandes.gaudi.change.counter.file.service.FileService;
+import com.uniandes.gaudi.change.counter.modification.exception.ModificationServiceException;
+import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
 
 /**
  * This class is in charge to implement the logic for the contollerService,
@@ -32,6 +42,34 @@ public class ControllerServiceImpl implements ControllerService {
 	public void compareVersions(CompareInfo compareInfo)
 			throws ControllerServiceException {
 
+		try {
+			if (compareInfo != null) {
+				throw new IllegalArgumentException("compare info is null");
+			}
+			
+			ServiceAbstractFactory serviceFactory = ServiceAbstractFactory.getInstance(Language.JAVA);
+			
+			FileService fileService = serviceFactory.getFileService();
+			AnalyzerService analyzerService = serviceFactory.getAnalyzerService();
+			ModificationService modificationService = serviceFactory.getModificationService();
+			
+			LOCFileStructure actualFileStructure = fileService.readFile(compareInfo.getActualPath());
+			
+			LOCFileStructure modifiedFileStructure = fileService.readFile(compareInfo.getModifiedPath());
+			
+			ChangeLOCStructure changeLOCStructure = analyzerService.performAnalysis(actualFileStructure, modifiedFileStructure);
+			
+			modificationService.performLabelRegistry(changeLOCStructure);
+		} catch (FileServiceException e) {
+			e.printStackTrace();
+		} catch (AnalyzerServiceException e) {
+			e.printStackTrace();
+		} catch (ModificationServiceException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
