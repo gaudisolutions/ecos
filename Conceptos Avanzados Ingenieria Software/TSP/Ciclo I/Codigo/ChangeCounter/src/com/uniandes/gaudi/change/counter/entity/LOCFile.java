@@ -1,60 +1,60 @@
 package com.uniandes.gaudi.change.counter.entity;
 
-import java.util.Date;
+import java.util.List;
 
 /**
- * This class represents a change loc file structure for the source code
+ * This class represents a file containing locs
  * 
- * @class ChangeLOCStructure.java
+ * @class LOCFile.java
  * @author Felipe
- * @Date 6/04/2013
+ * @Date 7/04/2013
  * @since 1.0
  */
-public class ChangeLOCStructure extends FileStructure {
+public class LOCFile {
 
 	/**
-	 * Represents the change date
+	 * Stores the locs for this file
 	 */
-	private Date chageDate;
+	private List<LineCode> locs;
 	/**
-	 * Represents the change number 
+	 * Stores the file name
 	 */
-	private Integer changeNumber;
+	private String name;
 	/**
-	 * Represents the total loc for this structure
+	 * stores the total locs for this file
 	 */
 	private Integer total;
 	/**
-	 * Represents the total added loc for this structure
+	 * stores the total added loc for this file
 	 */
 	private Integer totalAdded;
 	/**
-	 * Represents the total deleted loc for this structure
+	 * stores the total deleted loc for this file
 	 */
 	private Integer totalDeleted;
 	/**
-	 * @return the chageDate
+	 * @return the locs
 	 */
-	public Date getChageDate() {
-		return chageDate;
+	public List<LineCode> getLocs() {
+		return locs;
 	}
 	/**
-	 * @param chageDate the chageDate to set
+	 * @param locs the locs to set
 	 */
-	public void setChageDate(Date chageDate) {
-		this.chageDate = chageDate;
+	public void setLocs(List<LineCode> locs) {
+		this.locs = locs;
 	}
 	/**
-	 * @return the changeNumber
+	 * @return the name
 	 */
-	public Integer getChangeNumber() {
-		return changeNumber;
+	public String getName() {
+		return name;
 	}
 	/**
-	 * @param changeNumber the changeNumber to set
+	 * @param name the name to set
 	 */
-	public void setChangeNumber(Integer changeNumber) {
-		this.changeNumber = changeNumber;
+	public void setName(String name) {
+		this.name = name;
 	}
 	/**
 	 * @return the total
