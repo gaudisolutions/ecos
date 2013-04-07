@@ -22,6 +22,14 @@ public class CompareInfo {
 	 * represents the modification type (fix, enhancement)
 	 */
 	private ModificationType modificationType;
+	/**
+	 * represents the actual project path
+	 */
+	private String actualPath;
+	/**
+	 * Represents the modified project path
+	 */
+	private String modifiedPath;
 	
 	/**
 	 * @return the changeReason
@@ -59,6 +67,29 @@ public class CompareInfo {
 	public void setModificationType(ModificationType modificationType) {
 		this.modificationType = modificationType;
 	}
-	
-	
+	/**
+	 * @return the actualPath
+	 */
+	public String getActualPath() {
+		return actualPath;
+	}
+	/**
+	 * @param actualPath the actualPath to set
+	 */
+	public void setActualPath(String actualPath) {
+		this.actualPath = actualPath;
+	}
+	/**
+	 * @return the modifiedPath
+	 */
+	public String getModifiedPath() {
+		return modifiedPath;
+	}
+	/**
+	 * @param modifiedPath the modifiedPath to set
+	 */
+	public void setModifiedPath(String modifiedPath) {
+		this.modifiedPath = modifiedPath;
+	}
+		
 }
