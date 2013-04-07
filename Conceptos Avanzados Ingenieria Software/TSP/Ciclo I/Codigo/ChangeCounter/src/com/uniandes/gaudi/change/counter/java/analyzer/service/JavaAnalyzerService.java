@@ -1,4 +1,4 @@
-package com.uniandes.gaudi.change.counter.analyzer.service.java;
+package com.uniandes.gaudi.change.counter.java.analyzer.service;
 
 import com.uniandes.gaudi.change.counter.analyzer.exception.AnalyzerServiceException;
 import com.uniandes.gaudi.change.counter.analyzer.service.AnalyzerService;
