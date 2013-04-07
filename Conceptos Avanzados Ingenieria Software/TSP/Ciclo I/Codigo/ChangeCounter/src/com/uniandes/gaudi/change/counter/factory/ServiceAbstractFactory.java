@@ -1,6 +1,7 @@
 package com.uniandes.gaudi.change.counter.factory;
 
 import com.uniandes.gaudi.change.counter.analyzer.service.AnalyzerService;
+import com.uniandes.gaudi.change.counter.entity.Language;
 import com.uniandes.gaudi.change.counter.file.service.FileService;
 import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
 import com.uniandes.gaudi.change.counter.statistics.service.StatisticsService;
@@ -25,7 +26,7 @@ public abstract class ServiceAbstractFactory {
 	 * 
 	 * @return
 	 */
-	public static ServiceAbstractFactory getInstance() {
+	public static ServiceAbstractFactory getInstance(Language language) {
 		
 		return null;
 	}

@@ -14,7 +14,7 @@ import com.uniandes.gaudi.change.counter.entity.CompareInfo;
 public interface ControllerService {
 
 	/**
-	 * This method exposes the logic to compara to versions of a program
+	 * This method exposes the logic to compare to versions of a program
 	 * 
 	 * @param compareInfo with the user, change reason, modification type
 	 * @throws ControllerServiceException when a controller service exception is thrown

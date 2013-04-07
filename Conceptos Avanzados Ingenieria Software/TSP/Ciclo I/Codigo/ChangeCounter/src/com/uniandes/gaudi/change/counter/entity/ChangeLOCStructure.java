@@ -33,6 +33,11 @@ public class ChangeLOCStructure extends FileStructure {
 	 */
 	private Integer totalDeleted;
 	/**
+	 * Stores the info about the user, the type of change and the
+	 * comments for the change
+	 */
+	private CompareInfo compareInfo;
+	/**
 	 * @return the chageDate
 	 */
 	public Date getChageDate() {
@@ -92,5 +97,18 @@ public class ChangeLOCStructure extends FileStructure {
 	public void setTotalDeleted(Integer totalDeleted) {
 		this.totalDeleted = totalDeleted;
 	}
+	/**
+	 * @return the compareInfo
+	 */
+	public CompareInfo getCompareInfo() {
+		return compareInfo;
+	}
+	/**
+	 * @param compareInfo the compareInfo to set
+	 */
+	public void setCompareInfo(CompareInfo compareInfo) {
+		this.compareInfo = compareInfo;
+	}
+
 	
 }
