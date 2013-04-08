@@ -2,7 +2,12 @@ package com.uniandes.gaudi.change.counter.java.factory;
 
 import com.uniandes.gaudi.change.counter.analyzer.service.AnalyzerService;
 import com.uniandes.gaudi.change.counter.factory.ServiceAbstractFactory;
+import com.uniandes.gaudi.change.counter.file.service.FileFilter;
 import com.uniandes.gaudi.change.counter.file.service.FileService;
+import com.uniandes.gaudi.change.counter.file.service.LOCFileParser;
+import com.uniandes.gaudi.change.counter.file.service.LanguageFileService;
+import com.uniandes.gaudi.change.counter.java.analyzer.service.JavaAnalyzerService;
+import com.uniandes.gaudi.change.counter.java.file.JavaLOCFileParser;
 import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
 import com.uniandes.gaudi.change.counter.statistics.service.StatisticsService;
 
@@ -16,39 +21,53 @@ import com.uniandes.gaudi.change.counter.statistics.service.StatisticsService;
  */
 public class JavaServiceFactory extends ServiceAbstractFactory {
 
-	/* (non-Javadoc)
-	 * @see com.uniandes.gaudi.change.counter.factory.ServiceAbstractFactory#getAnalyzerService()
+	/**
+	 * This method returns an instance for the analyzer service
+	 * 
+	 * @return analyzer service instance
 	 */
 	@Override
 	public AnalyzerService getAnalyzerService() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return new JavaAnalyzerService();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.uniandes.gaudi.change.counter.factory.ServiceAbstractFactory#getFileService()
+	/**
+	 * This method returns an instance for the file service with specific 
+	 * java parser and file filter
+	 * 
+	 * @return file service instance
 	 */
 	@Override
 	public FileService getFileService() {
-		// TODO Auto-generated method stub
-		return null;
+
+		LOCFileParser locFileParser = new JavaLOCFileParser();
+		FileFilter fileFilter = new FileFilter(".java");
+		
+		LanguageFileService fileService = new LanguageFileService(locFileParser, fileFilter);
+		
+		return fileService;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.uniandes.gaudi.change.counter.factory.ServiceAbstractFactory#getModificationService()
+	/**
+	 * This method returns an instance for the modification service
+	 * 
+	 * @return modification service instance
 	 */
 	@Override
 	public ModificationService getModificationService() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.uniandes.gaudi.change.counter.factory.ServiceAbstractFactory#getStatisticsService()
+	/**
+	 * This method returns an instance for the statistics service
+	 * 
+	 * @return statistics service instance
 	 */
 	@Override
 	public StatisticsService getStatisticsService() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

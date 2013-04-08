@@ -10,7 +10,7 @@ package com.uniandes.gaudi.change.counter.entity;
  * @since 1.0
  */
 public class LOCFileStructure extends FileStructure{
-
+	
 	/**
 	 * source path for the given project
 	 */
@@ -19,6 +19,7 @@ public class LOCFileStructure extends FileStructure{
 	 * This represents the project, actual or modified
 	 */
 	private ProjectType type;
+	
 	/**
 	 * @return the path
 	 */
@@ -43,5 +44,4 @@ public class LOCFileStructure extends FileStructure{
 	public void setType(ProjectType type) {
 		this.type = type;
 	}
-		
 }
