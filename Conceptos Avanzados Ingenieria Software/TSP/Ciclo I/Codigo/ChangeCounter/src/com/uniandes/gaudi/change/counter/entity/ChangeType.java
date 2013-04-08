@@ -12,5 +12,5 @@ public enum ChangeType {
 
 	ADDED,
 	DELETED,
-	KEEPED;
+	KEPT;
 }

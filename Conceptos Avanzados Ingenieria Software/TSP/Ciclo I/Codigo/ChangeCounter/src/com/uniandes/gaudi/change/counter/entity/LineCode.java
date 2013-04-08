@@ -75,5 +75,8 @@ public class LineCode {
 		this.lineType = lineType;
 	}
 	
-	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 }

@@ -93,4 +93,9 @@ public class LOCFile {
 		this.totalDeleted = totalDeleted;
 	}
 	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+	
 }
