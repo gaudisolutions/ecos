@@ -3,11 +3,12 @@ package com.uniandes.gaudi.change.counter.factory;
 import com.uniandes.gaudi.change.counter.analyzer.service.AnalyzerService;
 import com.uniandes.gaudi.change.counter.entity.Language;
 import com.uniandes.gaudi.change.counter.file.service.FileService;
+import com.uniandes.gaudi.change.counter.java.factory.JavaServiceFactory;
 import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
 import com.uniandes.gaudi.change.counter.statistics.service.StatisticsService;
 
 /**
- * This class is an asbstract factory to instantiate the modules depending on the language
+ * This class is an abstract factory to instantiate the modules depending on the language
  * 
  * @class ServiceAbstractFactory.java
  * @author Felipe
@@ -28,7 +29,18 @@ public abstract class ServiceAbstractFactory {
 	 */
 	public static ServiceAbstractFactory getInstance(Language language) {
 		
-		return null;
+		if (instance == null) {
+			switch (language) {
+			case JAVA:
+				instance = new JavaServiceFactory();
+				break;
+
+			default:
+				throw new IllegalStateException(String.format("The language %s is not supported", language));
+			}
+		}
+		
+		return instance;
 	}
 	
 	/**

@@ -1,7 +1,11 @@
 package com.uniandes.gaudi.change.counter.file.service;
 
+import java.io.File;
+
+import com.uniandes.gaudi.change.counter.entity.LOCFile;
 import com.uniandes.gaudi.change.counter.entity.LOCFileStructure;
 import com.uniandes.gaudi.change.counter.file.exception.FileServiceException;
+import com.uniandes.gaudi.change.counter.util.file.FileUtil;
 
 /**
  * This class implements the file service for every language
@@ -21,7 +25,10 @@ public class LanguageFileService implements FileService {
 	 * Stores a file filter to loop the source code, for a specific language
 	 */
 	private FileFilter fileFilter;
-	
+	/**
+	 * Stores the initial path 
+	 */
+	private String initialPath;
 	/**
 	 * Constructor for the language file service that receives a loc file parser instance
 	 * 
@@ -43,8 +50,16 @@ public class LanguageFileService implements FileService {
 	@Override
 	public LOCFileStructure readFile(String projectPath)
 			throws FileServiceException {
+
+		LOCFileStructure locFileStructure = new LOCFileStructure();
 		
-		return null;
+		File projectFile = new File(projectPath);
+		
+		initialPath = projectPath;
+		
+		buildLOCFileStructure(projectFile, locFileStructure);
+		
+		return locFileStructure;
 	}
 
 	/**
@@ -56,8 +71,29 @@ public class LanguageFileService implements FileService {
 	 * to a file structure  
 	 * 
 	 * @param rootFile represents the root file to be parsed
+	 * @param locFileStructure with the file structure
+	 * @throws FileServiceException when a io  error is throw
 	 */
-	private void buildLOCFileStructure() {
+	private void buildLOCFileStructure(File rootFile, LOCFileStructure locFileStructure) throws FileServiceException {
 		
+		if (rootFile.isDirectory()) {
+
+			File files[] = rootFile.listFiles(fileFilter);
+
+			for (File file : files) {
+				buildLOCFileStructure(file, locFileStructure);
+			}
+		}
+
+		if (rootFile.isFile()) {
+			LOCFile locFile = locFileParser.parseFile(rootFile);
+			
+			FileUtil fileUtil = FileUtil.getInstance();
+			
+			String path = fileUtil.getRelativeParentPath(rootFile, initialPath);
+			
+			locFileStructure.addLOCFile(path, fileUtil.getFileName(rootFile), locFile);
+		}
 	}
+	
 }
