@@ -158,6 +158,9 @@ public class ModificationClient implements ModificationService {
 		File newFile = new File(location);
 		FileWriter writer = null;
 		try {
+			File parentFile = newFile.getParentFile();
+			parentFile.mkdirs();
+			
 			newFile.createNewFile();
 			writer = new FileWriter(newFile, true);
 			StringBuilder fileContent = new StringBuilder();
