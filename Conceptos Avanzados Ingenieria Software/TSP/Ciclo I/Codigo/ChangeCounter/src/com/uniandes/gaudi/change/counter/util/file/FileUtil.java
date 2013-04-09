@@ -58,6 +58,11 @@ public class FileUtil {
 		String path = file.getParent();
 		path = path.replace(root, "");
 		
+		if(path.startsWith("\\")){
+			path= path.substring(1);
+		}
+		
+		
 		return path;
 	}
 }

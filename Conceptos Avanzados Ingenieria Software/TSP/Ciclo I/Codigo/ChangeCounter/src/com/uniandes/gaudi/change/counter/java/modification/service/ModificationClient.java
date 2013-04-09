@@ -77,6 +77,7 @@ public class ModificationClient implements ModificationService {
 
 		Set<String> mapPackages = packageStructure.keySet();
 		Set<Folder> sourcePackages = new TreeSet<Folder>(new FolderLevelComparator());
+		totalLines = new Hashtable<String, List<LineCode>>();
 		
 		
 		for (String actualPackage : mapPackages) {
@@ -105,13 +106,13 @@ public class ModificationClient implements ModificationService {
 				LOCFile actualLocFile= fileMap.get(file);
 				List<LineCode> partialLines = actualLocFile.getLocs();
 				//Get line file´s line tree
-				totalLines = new Hashtable<String, List<LineCode>>();
+				
 				List<LineCode> auxLines= new ArrayList<LineCode>();
 				for (LineCode lineCode : partialLines) {
 					List<LineCode> lines = getLineTree(lineCode);
 					auxLines.addAll(lines);
 				}
-				String path = modifiedFolder.getAbsolutePath()+File.separator+file+".modified";
+				String path = modifiedFolder.getAbsolutePath()+File.separator+actualPackage+File.separator+file+".modified";
 				totalLines.put(path,auxLines);
 			}
 			
@@ -158,7 +159,7 @@ public class ModificationClient implements ModificationService {
 		FileWriter writer = null;
 		try {
 			newFile.createNewFile();
-			writer = new FileWriter(newFile);
+			writer = new FileWriter(newFile, true);
 			StringBuilder fileContent = new StringBuilder();
 			
 			Set<String> labels = labelLine.keySet();
@@ -204,7 +205,7 @@ public class ModificationClient implements ModificationService {
 		if(currentLine instanceof BlockLOC){
 			List<LineCode> currentLines=  ((BlockLOC) currentLine).getLocs();
 			for (LineCode lineCode : currentLines) {
-				getLineTree(lineCode);
+				totalLines.addAll(getLineTree(lineCode));
 			}
 		}
 		

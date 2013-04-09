@@ -61,7 +61,7 @@ public class ControllerServiceImpl implements ControllerService {
 			
 			ChangeLOCStructure changeLOCStructure = analyzerService.performAnalysis(actualFileStructure, modifiedFileStructure);
 			
-			changeLOCStructure.setCompareInfo(compareInfo);
+			changeLOCStructure.setCompareInfo(compareInfo);	
 			
 			modificationService.performLabelRegistry(changeLOCStructure);
 		} catch (FileServiceException e) {
