@@ -43,7 +43,7 @@ public class ControllerServiceImpl implements ControllerService {
 			throws ControllerServiceException {
 
 		try {
-			if (compareInfo != null) {
+			if (compareInfo == null) {
 				throw new IllegalArgumentException("compare info is null");
 			}
 			

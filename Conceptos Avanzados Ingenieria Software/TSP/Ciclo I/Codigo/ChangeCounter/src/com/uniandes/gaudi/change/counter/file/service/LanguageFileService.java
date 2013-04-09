@@ -53,6 +53,8 @@ public class LanguageFileService implements FileService {
 
 		LOCFileStructure locFileStructure = new LOCFileStructure();
 		
+		locFileStructure.setPath(projectPath);
+		
 		File projectFile = new File(projectPath);
 		
 		initialPath = projectPath;

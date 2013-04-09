@@ -144,8 +144,7 @@ public class JavaLOCFileParser implements LOCFileParser {
 	 */
 	private Boolean isValidLine(String line) {
 		
-		if (line.isEmpty() || line.equals("}") || line.startsWith("//")
-				|| line.startsWith("*")) {
+		if (line.isEmpty() || line.equals("}") || line.startsWith("//")) {
 			return false;
 		}
 
@@ -154,13 +153,13 @@ public class JavaLOCFileParser implements LOCFileParser {
 
 	/**
 	 * returns true if the line represents a java class using the regular expression
-	 * (public|protected|private)? +(\\w*) +(class|interface|enum) +(\\w)*\\{
+	 * (public|protected|private)? +((\\w)+ +)*(class|interface|enum) +(\\w+)( *.*)*\\{
 	 * 
 	 * @param line
 	 * @return true if the lines is a class, false otherwise
 	 */
 	private Boolean isClass(String line) {
-		String regex = "(public|protected|private)? +(\\w*) +(class|interface|enum) +(\\w)*\\{";
+		String regex = "(public|protected|private)? +((\\w)+ +)*(class|interface|enum) +(\\w+)( *.*)*\\{";
 		
 		return evaluateExpression(line, regex);
 	}
@@ -261,6 +260,8 @@ public class JavaLOCFileParser implements LOCFileParser {
 					closeLines--;
 				}
 			}
+			
+			line = bufferedReader.readLine();	
 		}
 		
 		lineNumber--;
