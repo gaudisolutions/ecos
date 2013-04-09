@@ -45,7 +45,7 @@ public class JavaAnalyzerService implements AnalyzerService{
 		Map<String, Map<String, LOCFile>> actualPackageFiles = actualFileStructure.getPackageFiles();
 		
 		Set<String> modifiedPackages = modifiedPackageFiles.keySet();
-		Set<String> actualPackages = modifiedPackageFiles.keySet();
+		Set<String> actualPackages = actualPackageFiles.keySet();
 		Set<String> allPackages = new HashSet<String>(); 
 		
 		allPackages.addAll(modifiedPackages);
