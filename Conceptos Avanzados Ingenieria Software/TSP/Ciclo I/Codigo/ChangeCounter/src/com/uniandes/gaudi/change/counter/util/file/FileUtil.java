@@ -66,4 +66,16 @@ public class FileUtil {
 		return path;
 	}
 	
+	/**
+	 * This method creates a parent directory for the current file,
+	 * calls the method getParentFile() from the file class to get
+	 * the parent folder
+	 * 
+	 * @param newFile to create the parent directory
+	 */
+	public void createParentDirectories(File newFile) {
+		File parentFile = newFile.getParentFile();
+		parentFile.mkdirs();
+	}
+	
 }

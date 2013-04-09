@@ -24,6 +24,7 @@ import com.uniandes.gaudi.change.counter.entity.LOCFile;
 import com.uniandes.gaudi.change.counter.entity.LineCode;
 import com.uniandes.gaudi.change.counter.modification.exception.ModificationServiceException;
 import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
+import com.uniandes.gaudi.change.counter.util.file.FileUtil;
 
 /**
  * 
@@ -158,8 +159,7 @@ public class ModificationClient implements ModificationService {
 		File newFile = new File(location);
 		FileWriter writer = null;
 		try {
-			File parentFile = newFile.getParentFile();
-			parentFile.mkdirs();
+			FileUtil.getInstance().createParentDirectories(newFile);
 			
 			newFile.createNewFile();
 			writer = new FileWriter(newFile, true);
@@ -167,7 +167,7 @@ public class ModificationClient implements ModificationService {
 			
 			Set<String> labels = labelLine.keySet();
 			for (String label : labels) {
-				fileContent.append(label+" "+labelLine.get(label));
+				fileContent.append(label+" "+labelLine.get(label)+"\n");
 			}
 			
 			writer.append(fileContent.toString());
@@ -183,7 +183,7 @@ public class ModificationClient implements ModificationService {
 		}
 		
 	}
-	
+
 	/**
 	 * Creates a folder structure for modified files
 	 * @param parent
