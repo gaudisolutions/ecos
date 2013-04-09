@@ -234,7 +234,7 @@ public class JavaAnalyzerService implements AnalyzerService{
 					LineCode deletedLine = (LineCode) locsActualFile.get(i).clone();
 					deletedLine.setLineNumber(lineNumber);
 					deletedLine.setChangeType(ChangeType.DELETED);
-					locs.add(line);
+					locs.add(deletedLine);
 					lineNumber++;
 					totalDeleted++;
 				}
