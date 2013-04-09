@@ -10,7 +10,7 @@ import java.util.List;
  * @Date 7/04/2013
  * @since 1.0
  */
-public class LOCFile {
+public class LOCFile implements Cloneable {
 
 	/**
 	 * Stores the locs for this file

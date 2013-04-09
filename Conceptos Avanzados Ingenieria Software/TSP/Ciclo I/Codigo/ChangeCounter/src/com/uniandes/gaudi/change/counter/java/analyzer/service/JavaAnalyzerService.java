@@ -42,7 +42,7 @@ public class JavaAnalyzerService implements AnalyzerService{
 		
 		Map<String, Map<String, LOCFile>> changedPackageFiles = new HashMap<String, Map<String,LOCFile>>();		
 		Map<String, Map<String, LOCFile>> modifiedPackageFiles = modifiedFileStructure.getPackageFiles();
-		Map<String, Map<String, LOCFile>> actualPackageFiles = modifiedFileStructure.getPackageFiles();
+		Map<String, Map<String, LOCFile>> actualPackageFiles = actualFileStructure.getPackageFiles();
 		
 		Set<String> modifiedPackages = modifiedPackageFiles.keySet();
 		Set<String> actualPackages = modifiedPackageFiles.keySet();
@@ -147,7 +147,8 @@ public class JavaAnalyzerService implements AnalyzerService{
 		int totalAdded = BigInteger.ZERO.intValue();
 		int totalDeleted = BigInteger.ZERO.intValue();
 		for (Map<String, LOCFile> locFilesPackage : packageFiles) {
-			List<LOCFile> locFiles = (List<LOCFile>) locFilesPackage.values();
+			
+			Collection<LOCFile> locFiles = locFilesPackage.values();		
 			for (LOCFile locFile : locFiles) {
 				programLines += locFile.getTotal();
 				totalAdded += locFile.getTotalAdded();

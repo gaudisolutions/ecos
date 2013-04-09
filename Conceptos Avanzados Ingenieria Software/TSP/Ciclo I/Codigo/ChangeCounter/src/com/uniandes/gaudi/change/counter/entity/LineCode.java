@@ -8,7 +8,7 @@ package com.uniandes.gaudi.change.counter.entity;
  * @Date 7/04/2013
  * @since 1.0
  */
-public class LineCode {
+public class LineCode implements Cloneable {
 
 	/**
 	 * Represents the change type for this loc
