@@ -1,7 +1,5 @@
 package com.uniandes.gaudi.change.counter.main;
 
-import java.util.regex.Pattern;
-
 import com.uniandes.gaudi.change.counter.controller.exception.ControllerServiceException;
 import com.uniandes.gaudi.change.counter.controller.service.ControllerServiceImpl;
 import com.uniandes.gaudi.change.counter.entity.CompareInfo;

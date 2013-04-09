@@ -83,9 +83,11 @@ public class JavaLOCFileParser implements LOCFileParser {
 					LineType lineType = getLineType(isMethod, isConstructor, isClass);
 					
 					if (isMethod || isConstructor || isClass) {
-						BlockLOC blockLOC = new BlockLOC();
-						lineNumber = fillBlock(blockLOC, bufferedReader, line, lineNumber, lineType);
-						locs.add(blockLOC);
+//						BlockLOC blockLOC = new BlockLOC();
+//						lineNumber = fillBlock(blockLOC, bufferedReader, line, lineNumber, lineType);
+						LineCode loc = new LineCode();
+						fillLOC(loc, line, lineNumber, lineType);
+						locs.add(loc);
 					} else if (isComment(line)) {
 						LineCode loc = new LineCode();
 						fillLOC(loc, line, lineNumber, LineType.COMMENT);
