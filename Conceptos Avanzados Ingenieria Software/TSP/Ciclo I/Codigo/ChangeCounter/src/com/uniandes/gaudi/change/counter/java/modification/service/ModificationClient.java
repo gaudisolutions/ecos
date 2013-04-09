@@ -62,7 +62,7 @@ public class ModificationClient implements ModificationService {
 	}		
 	
 	/**
-	 * 
+	 * This method is responsible of recover the data structure that represents the Program changes
 	 * @param packageStructure
 	 */
 	public void handleProgramStructure(Map<String, Map<String, LOCFile>> packageStructure, String modifiedPath){
@@ -120,9 +120,9 @@ public class ModificationClient implements ModificationService {
 	} 
 
 	/**
-	 * 
+	 * This method takes a LineCode object and turn it in a JSON structure
 	 * @param line
-	 * @return
+	 * @return lineInfo
 	 * @throws ModificationServiceException 
 	 */
 	public Map<String,String> line2Json(LineCode line) throws ModificationServiceException{
@@ -139,7 +139,7 @@ public class ModificationClient implements ModificationService {
 	}
 	
 	/**
-	 * 
+	 * This method create the new files with the change labels
 	 * @param location
 	 * @param labelLine
 	 * @throws ModificationServiceException 
@@ -172,7 +172,7 @@ public class ModificationClient implements ModificationService {
 	}
 	
 	/**
-	 * 
+	 * Creates a folder structure for modified files
 	 * @param parent
 	 */
 	public void createFolderStructure(File path){
@@ -183,7 +183,11 @@ public class ModificationClient implements ModificationService {
 		}
 		
 
-	
+	/**
+	 * This method is recursive and its function is go through the whole line structure of a File
+	 * @param currentLine
+	 * @return totalLines
+	 */
 	public List<LineCode> getLineTree(LineCode currentLine){
 		List<LineCode> totalLines = new ArrayList<LineCode>();
 		
