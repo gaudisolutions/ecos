@@ -3,10 +3,13 @@ package com.uniandes.gaudi.change.counter.controller.service;
 import com.uniandes.gaudi.change.counter.analyzer.exception.AnalyzerServiceException;
 import com.uniandes.gaudi.change.counter.analyzer.service.AnalyzerService;
 import com.uniandes.gaudi.change.counter.controller.exception.ControllerServiceException;
+import com.uniandes.gaudi.change.counter.entity.BlockLOC;
 import com.uniandes.gaudi.change.counter.entity.ChangeLOCStructure;
 import com.uniandes.gaudi.change.counter.entity.CompareInfo;
+import com.uniandes.gaudi.change.counter.entity.LOCFile;
 import com.uniandes.gaudi.change.counter.entity.LOCFileStructure;
 import com.uniandes.gaudi.change.counter.entity.Language;
+import com.uniandes.gaudi.change.counter.entity.LineCode;
 import com.uniandes.gaudi.change.counter.factory.ServiceAbstractFactory;
 import com.uniandes.gaudi.change.counter.file.exception.FileServiceException;
 import com.uniandes.gaudi.change.counter.file.service.FileService;
@@ -54,10 +57,11 @@ public class ControllerServiceImpl implements ControllerService {
 			ModificationService modificationService = serviceFactory.getModificationService();
 			
 			LOCFileStructure actualFileStructure = fileService.readFile(compareInfo.getActualPath());
-			
 			LOCFileStructure modifiedFileStructure = fileService.readFile(compareInfo.getModifiedPath());
 			
 			ChangeLOCStructure changeLOCStructure = analyzerService.performAnalysis(actualFileStructure, modifiedFileStructure);
+			
+			changeLOCStructure.setCompareInfo(compareInfo);
 			
 			modificationService.performLabelRegistry(changeLOCStructure);
 		} catch (FileServiceException e) {

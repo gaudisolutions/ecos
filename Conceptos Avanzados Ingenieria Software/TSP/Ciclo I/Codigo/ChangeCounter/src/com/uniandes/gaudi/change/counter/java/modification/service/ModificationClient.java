@@ -80,8 +80,17 @@ public class ModificationClient implements ModificationService {
 		
 		
 		for (String actualPackage : mapPackages) {
+			
+			String separator = "";
+			
 			//First the key must be split by folders
-			String auxiliar[]=actualPackage.split(File.separator);
+			if (File.separator.equals("\\")) {
+				separator = "\\\\";
+			} else {
+				separator = File.separator;
+			}
+			
+			String auxiliar[]=actualPackage.split(separator);
 			//Next the paths will be turn into Folder objects and store in a TreeSet sorted by level
 			for (int i = 0; i < auxiliar.length; i++) {
 				Folder actualFolder = new Folder(auxiliar[i],i);
@@ -130,7 +139,7 @@ public class ModificationClient implements ModificationService {
 		Map<String,String> lineInfo = new Hashtable<String, String>();
 		JSONObject jsonObject = new JSONObject();
 		try {
-			jsonObject.put(line.getLineType().name(), line.getLineNumber());
+			jsonObject.put(line.getChangeType().name(), line.getLineNumber());
 			lineInfo.put(jsonObject.toString(), line.getLine());
 		} catch (JSONException e) {
 			throw new ModificationServiceException(e.getMessage(),e);
