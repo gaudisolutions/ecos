@@ -13,6 +13,7 @@ import com.uniandes.gaudi.change.counter.analyzer.exception.AnalyzerServiceExcep
 import com.uniandes.gaudi.change.counter.analyzer.service.AnalyzerService;
 import com.uniandes.gaudi.change.counter.entity.ChangeLOCStructure;
 import com.uniandes.gaudi.change.counter.entity.ChangeType;
+import com.uniandes.gaudi.change.counter.entity.CompareInfo;
 import com.uniandes.gaudi.change.counter.entity.LOCFile;
 import com.uniandes.gaudi.change.counter.entity.LOCFileStructure;
 import com.uniandes.gaudi.change.counter.entity.LineCode;
@@ -37,8 +38,16 @@ public class JavaAnalyzerService implements AnalyzerService{
 	 */
 	@Override
 	public ChangeLOCStructure performAnalysis(LOCFileStructure actualFileStructure, LOCFileStructure modifiedFileStructure) throws AnalyzerServiceException {
+		
+		if (actualFileStructure == null && modifiedFileStructure == null) {
+			throw new AnalyzerServiceException("Las estructuras de archivos a comparar no pueden ser nulas");
+		}
+		
 		ChangeLOCStructure changeLOCStructure = new ChangeLOCStructure();
 		changeLOCStructure = new ChangeLOCStructure();
+		changeLOCStructure.setCompareInfo(new CompareInfo());
+		changeLOCStructure.getCompareInfo().setActualPath(actualFileStructure.getPath());
+		changeLOCStructure.getCompareInfo().setModifiedPath(modifiedFileStructure.getPath());
 		
 		Map<String, Map<String, LOCFile>> changedPackageFiles = new HashMap<String, Map<String,LOCFile>>();		
 		Map<String, Map<String, LOCFile>> modifiedPackageFiles = modifiedFileStructure.getPackageFiles();
