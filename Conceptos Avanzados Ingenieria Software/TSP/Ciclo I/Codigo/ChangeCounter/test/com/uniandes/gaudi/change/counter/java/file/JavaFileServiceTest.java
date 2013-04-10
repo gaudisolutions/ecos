@@ -2,10 +2,12 @@ package com.uniandes.gaudi.change.counter.java.file;
 
 import java.io.File;
 
+import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
 
 import org.junit.Test;
 
+import com.uniandes.gaudi.change.counter.entity.LOCFile;
 import com.uniandes.gaudi.change.counter.file.exception.FileServiceException;
 
 /**
@@ -22,9 +24,9 @@ public class JavaFileServiceTest {
 		JavaLOCFileParser fileParser = new JavaLOCFileParser();
 		
 		try {
-			fileParser.parseFile(new File("C:\\Users\\Felipe\\Google Drive\\Andes ECOS\\git\\Conceptos Avanzados Ingenieria Software\\TSP\\Ciclo I\\Codigo\\ChangeCounter\\test\\com\\uniandes\\gaudi\\change\\counter\\java\\file\\TestClass.java"));
+			LOCFile locFile = fileParser.parseFile(new File("test\\com\\uniandes\\gaudi\\change\\counter\\java\\file\\TestClass.java"));
 			
-//			Ass
+			Assert.assertEquals("deben ser iguales", "TestClass", locFile.getName());
 			
 		} catch (FileServiceException e) {
 			throw new AssertionFailedError(e.getMessage());
