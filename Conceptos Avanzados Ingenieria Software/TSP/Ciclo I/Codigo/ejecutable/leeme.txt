@@ -1,0 +1,8 @@
+Para ejecutar el programa
+
+-Ejecutar el archivo ChangeCounter.bat pasando como primer parámetro la ruta de la carpeta del código fuente de 
+ la versión actual del programa y como segundo parámetro la ruta de la carpeta del código fuente de la versión
+ modificada, ejemplo ChangeCounter.bat "C:\Codigo\ChangeCounter\src" "C:\Codigo\ChangeCounterModified\src"
+-Los archivos con las etiquetas serán generados dentro de la carpeta modified en la ruta indicada como parámetro
+ del codigo fuente modificado, ejemplo C:\Codigo\ChangeCounterModified\src\modified
+ 
