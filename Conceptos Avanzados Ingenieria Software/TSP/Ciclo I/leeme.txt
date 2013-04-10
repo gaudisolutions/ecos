@@ -1,0 +1,4 @@
+-Se adjuntan workbooks
+-En la carpeta Codigo se encuentra la carpeta ejecutable con el ejecutable del programa 
+ y las instrucciones, y en la carpeta ChangeCounter esta el proyecto de eclipse con el 
+ código fuente.
