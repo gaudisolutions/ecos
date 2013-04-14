@@ -1,0 +1,52 @@
+1.	Lector Archivos
+	FileUtil 27
+	JavaLOCFileParser 137
+	ChangeLOCStructure 52
+	LineCode 38
+	FileServiceException 12
+	LOCFile  47
+	LOCFileParser 8
+	LineType 7
+	FileService 7
+	BlockLOC 12
+	FileStructure 22
+	
+2.	Iterador Archivos
+	LOCFileStructure 19
+	FileFilter 18
+	LanguageFileService 40
+
+3.	Comparador de LOCS
+	JavaAnalyzerService 184
+	CompareInfo 43
+	ChangeType 6
+	AnalyzerServiceException 12
+	AnalyzerService 8
+		
+4.	Escribir modificaciones (Etiquetas)
+	FolderLevelComparator 7
+	ModificationServiceException 12
+	Folder 31
+	ModificationType 5
+	ModificationClient 118
+	ModificationService 7
+
+5.	Ingreso de información de líneas (interfaz gráfica de ingreso de comentarios) 
+	ProjectType 7
+	Main 16
+	ChangeCounterException 11
+	
+7.	Comparar varios lenguajes
+	ControllerService 9
+	ControllerServiceImpl 43
+	ControllerServiceException 12
+	JavaServiceFactory 33
+	ServiceAbstractFactory 29
+	Language 4
+	
+8.  Estadisticas
+	StatisticsServiceException 12
+	StatisticsService 7
+	ChangeStatistics 3
+	
+	TOTAL 1065
