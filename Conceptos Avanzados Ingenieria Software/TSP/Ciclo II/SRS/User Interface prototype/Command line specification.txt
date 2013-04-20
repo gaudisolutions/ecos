@@ -1,0 +1,23 @@
+ingresar comparacion
+
+ingresar ruta de programa 1
+ingresar ruta de programa 2
+ingresar tipo de modificacion
+ingresar usuario que realiza la modificacion
+ingresar comentario de las modificaciones
+
+mensaje comparacion terminada
+
+ingresar estadisticas
+ingresa ruta de programa modificado
+
+mensaje de ruta de archivo con estadisticas
+
+ChangeCounter.bat -modlist --> estadisticas
+ChangeCounter.bat -modhead --> estadisticas
+ChangeCounter.bat -stat --> estadisticas
+
+ChangeCounter.bat -comp -fix --> comparar versiones fix
+ChangeCounter.bat -comp -imp --> comaprar versiones enhacements
+
+
