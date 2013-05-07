@@ -1,3 +1,12 @@
+/*
+*<ChangeCounter>
+*<VERSION> 2.0
+*<CHANGES_DATE> null
+*<CHANGES_REASON> Por que quiero puedo y no me da miedo
+*<TOTAL_LOCS> 2955
+*<TOTAL_LOCS_ADDED> 1072
+*<TOTAL_LOCS_DELETED> 857
+*/
 package com.uniandes.gaudi.change.counter.main;
 
 import com.uniandes.gaudi.change.counter.controller.exception.ControllerServiceException;
