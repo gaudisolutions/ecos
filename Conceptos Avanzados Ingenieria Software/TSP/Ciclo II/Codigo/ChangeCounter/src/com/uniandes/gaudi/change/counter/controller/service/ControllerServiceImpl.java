@@ -19,6 +19,7 @@ import com.uniandes.gaudi.change.counter.java.analyzer.service.JavaAnalyzerServi
 import com.uniandes.gaudi.change.counter.java.statistics.JavaStatisticsService;
 import com.uniandes.gaudi.change.counter.modification.exception.ModificationServiceException;
 import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
+import com.uniandes.gaudi.change.counter.statistics.service.StatisticsService;
 
 
 /**
@@ -102,13 +103,8 @@ public class ControllerServiceImpl implements ControllerService {
 			
 			LOCFileStructure modifiedFileStructure = fileService.readModifiedFile(projectPath);
 			
-			JavaStatisticsService statisticsService=new JavaStatisticsService();
+			StatisticsService statisticsService = serviceFactory.getStatisticsService();
 			statisticsService.generateStatistics(modifiedFileStructure,destinationPath);
-			
-				
-			
-
-		
 		} catch (FileServiceException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
