@@ -9,6 +9,7 @@ import com.uniandes.gaudi.change.counter.file.service.LanguageFileService;
 import com.uniandes.gaudi.change.counter.java.analyzer.service.JavaAnalyzerService;
 import com.uniandes.gaudi.change.counter.java.file.JavaLOCFileParser;
 import com.uniandes.gaudi.change.counter.java.modification.service.ModificationClient;
+import com.uniandes.gaudi.change.counter.java.statistics.JavaStatisticsService;
 import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
 import com.uniandes.gaudi.change.counter.statistics.service.StatisticsService;
 
@@ -85,7 +86,7 @@ public class JavaServiceFactory extends ServiceAbstractFactory {
 	@Override
 	public StatisticsService getStatisticsService() {
 
-		return null;
+		return new JavaStatisticsService();
 	}
 
 }
