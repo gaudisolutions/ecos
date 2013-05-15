@@ -1,0 +1,13 @@
+{"VERSION":2,"KEPT":0}	package com.uniandes.gaudi.change.counter.java.modification.service;
+{"VERSION":2,"KEPT":1}	import java.util.Comparator;
+{"VERSION":2,"KEPT":2}	/**
+{"VERSION":2,"KEPT":3}	* This class allows perform sort tasks (by level) over a TreeSet that stores Folder objects
+{"VERSION":2,"KEPT":4}	* @class FolderLevelComparator.java
+{"VERSION":2,"KEPT":5}	* @author maria
+{"VERSION":2,"KEPT":6}	* @Date 8/04/2013
+{"VERSION":2,"KEPT":7}	* @since 1.0
+{"VERSION":2,"KEPT":8}	*/
+{"VERSION":2,"KEPT":9}	public class FolderLevelComparator implements Comparator<Folder> {
+{"VERSION":2,"KEPT":10}	@Override
+{"VERSION":2,"KEPT":11}	public int compare(Folder folder0, Folder folder1) {
+{"VERSION":2,"KEPT":12}	return folder0.getLevel()-folder1.getLevel() ;

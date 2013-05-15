@@ -1,0 +1,403 @@
+{"VERSION":2,"KEPT":0}	package com.uniandes.gaudi.change.counter.java.modification.service;
+{"VERSION":3,"ADDED":1}	import java.io.BufferedReader;
+{"VERSION":3,"DELETED":2}	import java.io.File;
+{"VERSION":3,"ADDED":3}	import java.io.BufferedWriter;
+{"VERSION":3,"DELETED":4}	import java.io.FileOutputStream;
+{"VERSION":3,"ADDED":5}	import java.io.File;
+{"VERSION":3,"DELETED":6}	import java.io.FileWriter;
+{"VERSION":3,"ADDED":7}	import java.io.FileNotFoundException;
+{"VERSION":3,"DELETED":8}	import java.io.IOException;
+{"VERSION":3,"ADDED":9}	import java.io.FileOutputStream;
+{"VERSION":3,"DELETED":10}	import java.util.ArrayList;
+{"VERSION":3,"ADDED":11}	import java.io.FileReader;
+{"VERSION":3,"DELETED":12}	import java.util.Hashtable;
+{"VERSION":3,"ADDED":13}	import java.io.FileWriter;
+{"VERSION":3,"DELETED":14}	import java.util.Iterator;
+{"VERSION":3,"ADDED":15}	import java.io.IOException;
+{"VERSION":3,"DELETED":16}	import java.util.LinkedHashMap;
+{"VERSION":3,"ADDED":17}	import java.util.ArrayList;
+{"VERSION":3,"DELETED":18}	import java.util.List;
+{"VERSION":3,"ADDED":19}	import java.util.Date;
+{"VERSION":3,"DELETED":20}	import java.util.Map;
+{"VERSION":3,"ADDED":21}	import java.util.HashMap;
+{"VERSION":3,"DELETED":22}	import java.util.Set;
+{"VERSION":3,"ADDED":23}	import java.util.HashSet;
+{"VERSION":3,"DELETED":24}	import java.util.TreeSet;
+{"VERSION":3,"ADDED":25}	import java.util.Hashtable;
+{"VERSION":3,"DELETED":26}	import javax.sound.sampled.Line;
+{"VERSION":3,"ADDED":27}	import java.util.Iterator;
+{"VERSION":3,"DELETED":28}	import org.json.JSONException;
+{"VERSION":3,"ADDED":29}	import java.util.LinkedHashMap;
+{"VERSION":3,"DELETED":30}	import org.json.JSONObject;
+{"VERSION":3,"ADDED":31}	import java.util.List;
+{"VERSION":3,"DELETED":32}	import com.uniandes.gaudi.change.counter.entity.BlockLOC;
+{"VERSION":3,"ADDED":33}	import java.util.Map;
+{"VERSION":3,"DELETED":34}	import com.uniandes.gaudi.change.counter.entity.ChangeLOCStructure;
+{"VERSION":3,"ADDED":35}	import java.util.Set;
+{"VERSION":3,"DELETED":36}	import com.uniandes.gaudi.change.counter.entity.LOCFile;
+{"VERSION":3,"ADDED":37}	import java.util.TreeSet;
+{"VERSION":3,"DELETED":38}	import com.uniandes.gaudi.change.counter.entity.LineCode;
+{"VERSION":3,"ADDED":39}	import java.util.regex.Pattern;
+{"VERSION":3,"DELETED":40}	import com.uniandes.gaudi.change.counter.modification.exception.ModificationServiceException;
+{"VERSION":3,"ADDED":41}	import javax.sound.sampled.Line;
+{"VERSION":3,"DELETED":42}	import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
+{"VERSION":3,"ADDED":43}	import org.json.JSONException;
+{"VERSION":3,"DELETED":44}	import com.uniandes.gaudi.change.counter.util.file.FileUtil;
+{"VERSION":3,"ADDED":45}	import org.json.JSONObject;
+{"VERSION":3,"DELETED":46}	/**
+{"VERSION":3,"ADDED":47}	import com.uniandes.gaudi.change.counter.analyzer.exception.AnalyzerServiceException;
+{"VERSION":3,"DELETED":48}	*
+{"VERSION":3,"ADDED":49}	import com.uniandes.gaudi.change.counter.entity.BlockLOC;
+{"VERSION":3,"DELETED":50}	* @class ModificationClient.java
+{"VERSION":3,"ADDED":51}	import com.uniandes.gaudi.change.counter.entity.ChangeLOCStructure;
+{"VERSION":3,"DELETED":52}	* @author maria
+{"VERSION":3,"ADDED":53}	import com.uniandes.gaudi.change.counter.entity.ChangeType;
+{"VERSION":3,"DELETED":54}	* @Date 7/04/2013
+{"VERSION":3,"ADDED":55}	import com.uniandes.gaudi.change.counter.entity.CompareInfo;
+{"VERSION":3,"DELETED":56}	* @since 1.0
+{"VERSION":3,"ADDED":57}	import com.uniandes.gaudi.change.counter.entity.LOCFile;
+{"VERSION":3,"DELETED":58}	*/
+{"VERSION":3,"ADDED":59}	import com.uniandes.gaudi.change.counter.entity.LOCFileStructure;
+{"VERSION":3,"DELETED":60}	public class ModificationClient implements ModificationService {
+{"VERSION":3,"ADDED":61}	import com.uniandes.gaudi.change.counter.entity.LineCode;
+{"VERSION":3,"DELETED":62}	private Map<String,List<LineCode>>totalLines;
+{"VERSION":3,"ADDED":63}	import com.uniandes.gaudi.change.counter.modification.exception.ModificationServiceException;
+{"VERSION":3,"DELETED":64}	/**
+{"VERSION":3,"ADDED":65}	import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
+{"VERSION":3,"DELETED":66}	* This method exposes the login to perform label registro with the modification labels
+{"VERSION":3,"ADDED":67}	import com.uniandes.gaudi.change.counter.util.file.FileUtil;
+{"VERSION":3,"DELETED":68}	*
+{"VERSION":3,"ADDED":69}	/**
+{"VERSION":3,"DELETED":70}	* @param changeLOCStructure with the change loc info
+{"VERSION":3,"ADDED":71}	*
+{"VERSION":3,"DELETED":72}	* @throws ModificationServiceException when an error is thrown writting modifications
+{"VERSION":3,"ADDED":73}	* @class ModificationClient.java
+{"VERSION":3,"DELETED":74}	*/
+{"VERSION":3,"ADDED":75}	* @author maria
+{"VERSION":3,"DELETED":76}	@Override
+{"VERSION":3,"ADDED":77}	* @Date 7/04/2013
+{"VERSION":3,"DELETED":78}	public void performLabelRegistry(ChangeLOCStructure changeLOCStructure)
+{"VERSION":3,"ADDED":79}	* @since 1.0
+{"VERSION":3,"DELETED":80}	throws ModificationServiceException {
+{"VERSION":3,"ADDED":81}	*/
+{"VERSION":3,"DELETED":82}	handleProgramStructure(changeLOCStructure.getPackageFiles(),changeLOCStructure.getCompareInfo().getModifiedPath());
+{"VERSION":3,"ADDED":83}	public class ModificationClient implements ModificationService {
+{"VERSION":3,"DELETED":84}	Map<String,String> lineInfo = new LinkedHashMap<String, String>();
+{"VERSION":3,"ADDED":85}	private Map<String,List<LineCode>>totalLines;
+{"VERSION":3,"DELETED":86}	Set<String> keys = totalLines.keySet();
+{"VERSION":3,"ADDED":87}	/**
+{"VERSION":3,"DELETED":88}	for (String path : keys) {
+{"VERSION":3,"ADDED":89}	* This method exposes the login to perform label registro with the modification labels
+{"VERSION":3,"DELETED":90}	List<LineCode> lines= totalLines.get(path);
+{"VERSION":3,"ADDED":91}	*
+{"VERSION":3,"DELETED":92}	for (LineCode lineCode : lines) {
+{"VERSION":3,"ADDED":93}	* @param changeLOCStructure with the change loc info
+{"VERSION":3,"DELETED":94}	lineInfo = line2Json(lineCode);
+{"VERSION":3,"ADDED":95}	* @throws ModificationServiceException when an error is thrown writting modifications
+{"VERSION":3,"DELETED":96}	createFile(path, lineInfo);
+{"VERSION":3,"ADDED":97}	*/
+{"VERSION":3,"DELETED":98}	/**
+{"VERSION":3,"ADDED":99}	@Override
+{"VERSION":3,"DELETED":100}	* This method is responsible of recover the data structure that represents the Program changes
+{"VERSION":3,"ADDED":101}	public void performLabelRegistry(ChangeLOCStructure changeLOCStructure)
+{"VERSION":3,"DELETED":102}	* @param packageStructure
+{"VERSION":3,"ADDED":103}	throws ModificationServiceException {
+{"VERSION":3,"DELETED":104}	*/
+{"VERSION":3,"ADDED":105}	handleProgramStructure(changeLOCStructure.getPackageFiles(),changeLOCStructure.getCompareInfo().getModifiedPath());
+{"VERSION":3,"DELETED":106}	public void handleProgramStructure(Map<String, Map<String, LOCFile>> packageStructure, String modifiedPath){
+{"VERSION":3,"ADDED":107}	Map<String,String> lineInfo = new LinkedHashMap<String, String>();
+{"VERSION":3,"DELETED":108}	if(packageStructure==null){
+{"VERSION":3,"ADDED":109}	Set<String> keys = totalLines.keySet();
+{"VERSION":3,"DELETED":110}	throw new IllegalArgumentException("The package structure is null");
+{"VERSION":3,"ADDED":111}	for (String path : keys) {
+{"VERSION":3,"DELETED":112}	String srcPackage=modifiedPath;
+{"VERSION":3,"ADDED":113}	List<LineCode> lines= totalLines.get(path);
+{"VERSION":3,"DELETED":114}	File modifiedFolder = new File(srcPackage+File.separator+"modified");
+{"VERSION":3,"ADDED":115}	for (LineCode lineCode : lines) {
+{"VERSION":3,"DELETED":116}	modifiedFolder.mkdir();
+{"VERSION":3,"ADDED":117}	lineInfo = line2Json(lineCode,changeLOCStructure.getVersion());
+{"VERSION":3,"DELETED":118}	Set<String> mapPackages = packageStructure.keySet();
+{"VERSION":3,"ADDED":119}	createFile(path, lineInfo);
+{"VERSION":3,"DELETED":120}	Set<Folder> sourcePackages = new TreeSet<Folder>(new FolderLevelComparator());
+{"VERSION":3,"ADDED":121}	/**
+{"VERSION":3,"DELETED":122}	totalLines = new Hashtable<String, List<LineCode>>();
+{"VERSION":3,"ADDED":123}	* This method is responsible of recover the data structure that represents the Program changes
+{"VERSION":3,"DELETED":124}	for (String actualPackage : mapPackages) {
+{"VERSION":3,"ADDED":125}	* @param packageStructure
+{"VERSION":3,"DELETED":126}	String separator = "";
+{"VERSION":3,"ADDED":127}	*/
+{"VERSION":3,"DELETED":128}	if (File.separator.equals("\\")) {
+{"VERSION":3,"ADDED":129}	public void handleProgramStructure(Map<String, Map<String, LOCFile>> packageStructure, String modifiedPath){
+{"VERSION":3,"DELETED":130}	separator = "\\\\";
+{"VERSION":3,"ADDED":131}	if(packageStructure==null){
+{"VERSION":3,"DELETED":132}	} else {
+{"VERSION":3,"ADDED":133}	throw new IllegalArgumentException("The package structure is null");
+{"VERSION":3,"DELETED":134}	separator = File.separator;
+{"VERSION":3,"ADDED":135}	String srcPackage=modifiedPath;
+{"VERSION":3,"DELETED":136}	String auxiliar[]=actualPackage.split(separator);
+{"VERSION":3,"ADDED":137}	File modifiedFolder = new File(srcPackage+File.separator+"modified");
+{"VERSION":3,"DELETED":138}	for (int i = 0; i < auxiliar.length; i++) {
+{"VERSION":3,"ADDED":139}	modifiedFolder.mkdir();
+{"VERSION":3,"DELETED":140}	Folder actualFolder = new Folder(auxiliar[i],i);
+{"VERSION":3,"ADDED":141}	Set<String> mapPackages = packageStructure.keySet();
+{"VERSION":3,"DELETED":142}	sourcePackages.add(actualFolder);
+{"VERSION":3,"ADDED":143}	Set<Folder> sourcePackages = new TreeSet<Folder>(new FolderLevelComparator());
+{"VERSION":3,"DELETED":144}	Map<String,LOCFile> fileMap =packageStructure.get(actualPackage);
+{"VERSION":3,"ADDED":145}	totalLines = new Hashtable<String, List<LineCode>>();
+{"VERSION":3,"DELETED":146}	Set<String> files = fileMap.keySet();
+{"VERSION":3,"ADDED":147}	for (String actualPackage : mapPackages) {
+{"VERSION":3,"DELETED":148}	for (String file : files) {
+{"VERSION":3,"ADDED":149}	String separator = "";
+{"VERSION":3,"DELETED":150}	LOCFile actualLocFile= fileMap.get(file);
+{"VERSION":3,"ADDED":151}	if (File.separator.equals("\\")) {
+{"VERSION":3,"DELETED":152}	List<LineCode> partialLines = actualLocFile.getLocs();
+{"VERSION":3,"ADDED":153}	separator = "\\\\";
+{"VERSION":3,"DELETED":154}	List<LineCode> auxLines= new ArrayList<LineCode>();
+{"VERSION":3,"ADDED":155}	} else {
+{"VERSION":3,"DELETED":156}	for (LineCode lineCode : partialLines) {
+{"VERSION":3,"ADDED":157}	separator = File.separator;
+{"VERSION":3,"DELETED":158}	List<LineCode> lines = getLineTree(lineCode);
+{"VERSION":3,"ADDED":159}	String auxiliar[]=actualPackage.split(separator);
+{"VERSION":3,"DELETED":160}	auxLines.addAll(lines);
+{"VERSION":3,"ADDED":161}	for (int i = 0; i < auxiliar.length; i++) {
+{"VERSION":3,"DELETED":162}	String path = modifiedFolder.getAbsolutePath()+File.separator+actualPackage+File.separator+file+".modified";
+{"VERSION":3,"ADDED":163}	Folder actualFolder = new Folder(auxiliar[i],i);
+{"VERSION":3,"DELETED":164}	totalLines.put(path,auxLines);
+{"VERSION":3,"ADDED":165}	sourcePackages.add(actualFolder);
+{"VERSION":3,"DELETED":166}	StringBuilder path = new StringBuilder(srcPackage+File.separator+"modified");
+{"VERSION":3,"ADDED":167}	Map<String,LOCFile> fileMap =packageStructure.get(actualPackage);
+{"VERSION":3,"DELETED":168}	for (Folder folder : sourcePackages) {
+{"VERSION":3,"ADDED":169}	Set<String> files = fileMap.keySet();
+{"VERSION":3,"DELETED":170}	path.append(File.separator).append(folder.getName());
+{"VERSION":3,"ADDED":171}	for (String file : files) {
+{"VERSION":3,"DELETED":172}	createFolderStructure(new File(path.toString()));
+{"VERSION":3,"ADDED":173}	LOCFile actualLocFile= fileMap.get(file);
+{"VERSION":3,"DELETED":174}	/**
+{"VERSION":3,"ADDED":175}	List<LineCode> partialLines = actualLocFile.getLocs();
+{"VERSION":3,"DELETED":176}	* This method takes a LineCode object and turn it in a JSON structure
+{"VERSION":3,"ADDED":177}	List<LineCode> auxLines= new ArrayList<LineCode>();
+{"VERSION":3,"DELETED":178}	* @param line
+{"VERSION":3,"ADDED":179}	for (LineCode lineCode : partialLines) {
+{"VERSION":3,"DELETED":180}	* @return lineInfo
+{"VERSION":3,"ADDED":181}	List<LineCode> lines = getLineTree(lineCode);
+{"VERSION":3,"DELETED":182}	* @throws ModificationServiceException
+{"VERSION":3,"ADDED":183}	auxLines.addAll(lines);
+{"VERSION":3,"DELETED":184}	*/
+{"VERSION":3,"ADDED":185}	String path = modifiedFolder.getAbsolutePath()+File.separator+actualPackage+File.separator+file+".modified";
+{"VERSION":3,"DELETED":186}	public Map<String,String> line2Json(LineCode line) throws ModificationServiceException{
+{"VERSION":3,"ADDED":187}	totalLines.put(path,auxLines);
+{"VERSION":3,"DELETED":188}	Map<String,String> lineInfo = new Hashtable<String, String>();
+{"VERSION":3,"ADDED":189}	StringBuilder path = new StringBuilder(srcPackage+File.separator+"modified");
+{"VERSION":3,"DELETED":190}	JSONObject jsonObject = new JSONObject();
+{"VERSION":3,"ADDED":191}	for (Folder folder : sourcePackages) {
+{"VERSION":3,"DELETED":192}	try {
+{"VERSION":3,"ADDED":193}	path.append(File.separator).append(folder.getName());
+{"VERSION":3,"DELETED":194}	jsonObject.put(line.getChangeType().name(), line.getLineNumber());
+{"VERSION":3,"ADDED":195}	createFolderStructure(new File(path.toString()));
+{"VERSION":3,"DELETED":196}	lineInfo.put(jsonObject.toString(), line.getLine());
+{"VERSION":3,"ADDED":197}	/**
+{"VERSION":3,"DELETED":198}	} catch (JSONException e) {
+{"VERSION":3,"ADDED":199}	* This method takes a LineCode object and turn it in a JSON structure
+{"VERSION":3,"DELETED":200}	throw new ModificationServiceException(e.getMessage(),e);
+{"VERSION":3,"ADDED":201}	* @param line
+{"VERSION":3,"DELETED":202}	return lineInfo;
+{"VERSION":3,"ADDED":203}	* @param version
+{"VERSION":3,"DELETED":204}	/**
+{"VERSION":3,"ADDED":205}	* @return lineInfo
+{"VERSION":3,"DELETED":206}	* This method create the new files with the change labels
+{"VERSION":3,"ADDED":207}	* @throws ModificationServiceException
+{"VERSION":3,"DELETED":208}	* @param location
+{"VERSION":3,"ADDED":209}	*/
+{"VERSION":3,"DELETED":210}	* @param labelLine
+{"VERSION":3,"ADDED":211}	public Map<String,String> line2Json(LineCode line, double version) throws ModificationServiceException{
+{"VERSION":3,"DELETED":212}	* @throws ModificationServiceException
+{"VERSION":3,"ADDED":213}	Map<String,String> lineInfo = new Hashtable<String, String>();
+{"VERSION":3,"DELETED":214}	*/
+{"VERSION":3,"ADDED":215}	JSONObject jsonObject = new JSONObject();
+{"VERSION":3,"DELETED":216}	public void createFile(String location,Map<String,String> labelLine) throws ModificationServiceException{
+{"VERSION":3,"ADDED":217}	try {
+{"VERSION":3,"DELETED":218}	File newFile = new File(location);
+{"VERSION":3,"ADDED":219}	jsonObject.put(line.getChangeType().name(), line.getLineNumber());
+{"VERSION":3,"DELETED":220}	FileWriter writer = null;
+{"VERSION":3,"ADDED":221}	if(line.getChangeType().equals(ChangeType.KEPT)){
+{"VERSION":3,"DELETED":222}	try {
+{"VERSION":3,"ADDED":223}	jsonObject.put("VERSION", version-1);
+{"VERSION":3,"DELETED":224}	FileUtil.getInstance().createParentDirectories(newFile);
+{"VERSION":3,"ADDED":225}	else{
+{"VERSION":3,"DELETED":226}	newFile.createNewFile();
+{"VERSION":3,"ADDED":227}	jsonObject.put("VERSION", version);
+{"VERSION":3,"DELETED":228}	writer = new FileWriter(newFile, true);
+{"VERSION":3,"ADDED":229}	lineInfo.put(jsonObject.toString(), line.getLine());
+{"VERSION":3,"DELETED":230}	StringBuilder fileContent = new StringBuilder();
+{"VERSION":3,"ADDED":231}	} catch (JSONException e) {
+{"VERSION":3,"DELETED":232}	Set<String> labels = labelLine.keySet();
+{"VERSION":3,"ADDED":233}	throw new ModificationServiceException(e.getMessage(),e);
+{"VERSION":3,"DELETED":234}	for (String label : labels) {
+{"VERSION":3,"ADDED":235}	return lineInfo;
+{"VERSION":3,"DELETED":236}	fileContent.append(label+" "+labelLine.get(label)+"\n");
+{"VERSION":3,"ADDED":237}	/**
+{"VERSION":3,"DELETED":238}	writer.append(fileContent.toString());
+{"VERSION":3,"ADDED":239}	* This method create the new files with the change labels
+{"VERSION":3,"DELETED":240}	writer.flush();
+{"VERSION":3,"ADDED":241}	* @param location
+{"VERSION":3,"DELETED":242}	} catch (IOException e) {
+{"VERSION":3,"ADDED":243}	* @param labelLine
+{"VERSION":3,"DELETED":244}	throw new ModificationServiceException(e.getMessage(),e);
+{"VERSION":3,"ADDED":245}	* @throws ModificationServiceException
+{"VERSION":3,"DELETED":246}	}finally{
+{"VERSION":3,"ADDED":247}	*/
+{"VERSION":3,"DELETED":248}	try {
+{"VERSION":3,"ADDED":249}	public void createFile(String location,Map<String,String> labelLine) throws ModificationServiceException{
+{"VERSION":3,"DELETED":250}	writer.close();
+{"VERSION":3,"ADDED":251}	File newFile = new File(location);
+{"VERSION":3,"DELETED":252}	} catch (IOException e) {
+{"VERSION":3,"ADDED":253}	FileWriter writer = null;
+{"VERSION":3,"DELETED":254}	/**
+{"VERSION":3,"ADDED":255}	try {
+{"VERSION":3,"DELETED":256}	* Creates a folder structure for modified files
+{"VERSION":3,"ADDED":257}	FileUtil.getInstance().createParentDirectories(newFile);
+{"VERSION":3,"DELETED":258}	* @param parent
+{"VERSION":3,"ADDED":259}	newFile.createNewFile();
+{"VERSION":3,"DELETED":260}	*/
+{"VERSION":3,"ADDED":261}	writer = new FileWriter(newFile, true);
+{"VERSION":3,"DELETED":262}	public void createFolderStructure(File path){
+{"VERSION":3,"ADDED":263}	StringBuilder fileContent = new StringBuilder();
+{"VERSION":3,"DELETED":264}	if(path!=null){
+{"VERSION":3,"ADDED":265}	Set<String> labels = labelLine.keySet();
+{"VERSION":3,"DELETED":266}	path.mkdir();
+{"VERSION":3,"ADDED":267}	for (String label : labels) {
+{"VERSION":3,"DELETED":268}	}else
+{"VERSION":3,"ADDED":269}	fileContent.append(label+"\t"+labelLine.get(label)+"\r\n");
+{"VERSION":3,"DELETED":270}	throw new IllegalArgumentException("The package under src is null");
+{"VERSION":3,"ADDED":271}	writer.append(fileContent.toString());
+{"VERSION":3,"DELETED":272}	/**
+{"VERSION":3,"ADDED":273}	writer.flush();
+{"VERSION":3,"DELETED":274}	* This method is recursive and its function is go through the whole line structure of a File
+{"VERSION":3,"ADDED":275}	} catch (IOException e) {
+{"VERSION":3,"DELETED":276}	* @param currentLine
+{"VERSION":3,"ADDED":277}	throw new ModificationServiceException(e.getMessage(),e);
+{"VERSION":3,"DELETED":278}	* @return totalLines
+{"VERSION":3,"ADDED":279}	}finally{
+{"VERSION":3,"DELETED":280}	*/
+{"VERSION":3,"ADDED":281}	try {
+{"VERSION":3,"DELETED":282}	public List<LineCode> getLineTree(LineCode currentLine){
+{"VERSION":3,"ADDED":283}	writer.close();
+{"VERSION":3,"DELETED":284}	List<LineCode> totalLines = new ArrayList<LineCode>();
+{"VERSION":3,"ADDED":285}	} catch (IOException e) {
+{"VERSION":3,"DELETED":286}	totalLines.add(currentLine);
+{"VERSION":3,"ADDED":287}	/**
+{"VERSION":3,"DELETED":288}	if(currentLine instanceof BlockLOC){
+{"VERSION":3,"ADDED":289}	* Creates a folder structure for modified files
+{"VERSION":3,"DELETED":290}	List<LineCode> currentLines=  ((BlockLOC) currentLine).getLocs();
+{"VERSION":3,"ADDED":291}	* @param parent
+{"VERSION":3,"DELETED":292}	for (LineCode lineCode : currentLines) {
+{"VERSION":3,"ADDED":293}	*/
+{"VERSION":3,"DELETED":294}	totalLines.addAll(getLineTree(lineCode));
+{"VERSION":3,"ADDED":295}	public void createFolderStructure(File path){
+{"VERSION":3,"DELETED":296}	return totalLines;
+{"VERSION":3,"ADDED":297}	if(path!=null){
+{"VERSION":3,"ADDED":298}	path.mkdir();
+{"VERSION":3,"ADDED":299}	}else
+{"VERSION":3,"ADDED":300}	throw new IllegalArgumentException("The package under src is null");
+{"VERSION":3,"ADDED":301}	/**
+{"VERSION":3,"ADDED":302}	* This method is recursive and its function is go through the whole line structure of a File
+{"VERSION":3,"ADDED":303}	* @param currentLine
+{"VERSION":3,"ADDED":304}	* @return totalLines
+{"VERSION":3,"ADDED":305}	*/
+{"VERSION":3,"ADDED":306}	public List<LineCode> getLineTree(LineCode currentLine){
+{"VERSION":3,"ADDED":307}	List<LineCode> totalLines = new ArrayList<LineCode>();
+{"VERSION":3,"ADDED":308}	totalLines.add(currentLine);
+{"VERSION":3,"ADDED":309}	if(currentLine instanceof BlockLOC){
+{"VERSION":3,"ADDED":310}	List<LineCode> currentLines=  ((BlockLOC) currentLine).getLocs();
+{"VERSION":3,"ADDED":311}	for (LineCode lineCode : currentLines) {
+{"VERSION":3,"ADDED":312}	totalLines.addAll(getLineTree(lineCode));
+{"VERSION":3,"ADDED":313}	return totalLines;
+{"VERSION":3,"ADDED":314}	/**
+{"VERSION":3,"ADDED":315}	* This method exposes the logic to perform the header with the modification
+{"VERSION":3,"ADDED":316}	*
+{"VERSION":3,"ADDED":317}	* @param changeLOCStructure with the change loc info
+{"VERSION":3,"ADDED":318}	* @param modifiedFileStructure with the modified file structure
+{"VERSION":3,"ADDED":319}	* @throws ModificationServiceException when an error is thrown writting modifications
+{"VERSION":3,"ADDED":320}	*/
+{"VERSION":3,"ADDED":321}	public void performHeader(LOCFileStructure modifiedFileStructure,
+{"VERSION":3,"ADDED":322}	ChangeLOCStructure changeLOCStructure)throws ModificationServiceException {
+{"VERSION":3,"ADDED":323}	Map<String, Map<String, LOCFile>> modifiedPackageFiles = modifiedFileStructure.getPackageFiles();
+{"VERSION":3,"ADDED":324}	Set<String> modifiedPackages = modifiedPackageFiles.keySet();
+{"VERSION":3,"ADDED":325}	Set<String> allPackages = new HashSet<String>();
+{"VERSION":3,"ADDED":326}	allPackages.addAll(modifiedPackages);
+{"VERSION":3,"ADDED":327}	try {
+{"VERSION":3,"ADDED":328}	for (String packageName : allPackages) {
+{"VERSION":3,"ADDED":329}	Map<String, LOCFile> changedLOCFiles;
+{"VERSION":3,"ADDED":330}	changedLOCFiles = new HashMap<String, LOCFile>();
+{"VERSION":3,"ADDED":331}	Map<String, LOCFile> modifiedLOCFiles = modifiedPackageFiles.get(packageName);
+{"VERSION":3,"ADDED":332}	Set<String> modifiedClases = modifiedLOCFiles.keySet();
+{"VERSION":3,"ADDED":333}	Set<String> allClasses = new HashSet<String>();
+{"VERSION":3,"ADDED":334}	allClasses.addAll(modifiedClases);
+{"VERSION":3,"ADDED":335}	for (String className : allClasses) {
+{"VERSION":3,"ADDED":336}	if (modifiedLOCFiles.get(className) != null ) {
+{"VERSION":3,"ADDED":337}	searchMain(modifiedLOCFiles.get(className));
+{"VERSION":3,"ADDED":338}	if(modifiedLOCFiles.get(className).isMain()){
+{"VERSION":3,"ADDED":339}	modifyHeader(modifiedLOCFiles.get(className),changeLOCStructure);
+{"VERSION":3,"ADDED":340}	} catch (Exception e) {
+{"VERSION":3,"ADDED":341}	throw new ModificationServiceException("Excepción al modificar la clase" + modifiedFileStructure.getPath(), e.getCause());
+{"VERSION":3,"ADDED":342}	private void modifyHeader(LOCFile locFile, ChangeLOCStructure changeLOCStructure) throws ModificationServiceException {
+{"VERSION":3,"ADDED":343}	StringBuilder fileContent = new StringBuilder();
+{"VERSION":3,"ADDED":344}	fileContent.append(searchPreviousHeader(locFile));
+{"VERSION":3,"ADDED":345}	reWriteHeader(fileContent,changeLOCStructure,locFile.getPath());
+{"VERSION":3,"ADDED":346}	private void reWriteHeader(StringBuilder fileContent,
+{"VERSION":3,"ADDED":347}	ChangeLOCStructure changeLOCStructure, String path) throws ModificationServiceException {
+{"VERSION":3,"ADDED":348}	BufferedWriter buff = null;
+{"VERSION":3,"ADDED":349}	StringBuilder newHeader=new StringBuilder();
+{"VERSION":3,"ADDED":350}	newHeader.append("/*"+"\r\n");
+{"VERSION":3,"ADDED":351}	newHeader.append("*<ChangeCounter>"+"\r\n");
+{"VERSION":3,"ADDED":352}	newHeader.append("*<VERSION> "+changeLOCStructure.getVersion()+"\r\n");
+{"VERSION":3,"ADDED":353}	newHeader.append("*<AUTHOR> "+changeLOCStructure.getCompareInfo().getModifiedBy()+"\r\n");
+{"VERSION":3,"ADDED":354}	Date fecha = new Date();
+{"VERSION":3,"ADDED":355}	newHeader.append("*<CHANGES_DATE> "+ fecha+"\r\n");
+{"VERSION":3,"ADDED":356}	newHeader.append("*<CHANGES_REASON> "+ changeLOCStructure.getCompareInfo().getChangeReason()+"\r\n");
+{"VERSION":3,"ADDED":357}	newHeader.append("*<TOTAL_LOCS> "+ changeLOCStructure.getTotal()+"\r\n");
+{"VERSION":3,"ADDED":358}	newHeader.append("*<TOTAL_LOCS_ADDED> "+ changeLOCStructure.getTotalAdded()+"\r\n");
+{"VERSION":3,"ADDED":359}	newHeader.append("*<TOTAL_LOCS_DELETED> "+ changeLOCStructure.getTotalDeleted()+"\r\n");
+{"VERSION":3,"ADDED":360}	newHeader.append("*/"+"\r\n");
+{"VERSION":3,"ADDED":361}	try {
+{"VERSION":3,"ADDED":362}	buff=new BufferedWriter(new FileWriter(path));
+{"VERSION":3,"ADDED":363}	buff.append(newHeader.toString());
+{"VERSION":3,"ADDED":364}	buff.append(fileContent.toString());
+{"VERSION":3,"ADDED":365}	buff.flush();
+{"VERSION":3,"ADDED":366}	} catch (IOException e) {
+{"VERSION":3,"ADDED":367}	throw new ModificationServiceException(e.getMessage(),e);
+{"VERSION":3,"ADDED":368}	}finally{
+{"VERSION":3,"ADDED":369}	try {
+{"VERSION":3,"ADDED":370}	buff.close();
+{"VERSION":3,"ADDED":371}	} catch (IOException e) {
+{"VERSION":3,"ADDED":372}	private StringBuilder searchPreviousHeader(LOCFile locFile) {
+{"VERSION":3,"ADDED":373}	StringBuilder fileLines=new StringBuilder();
+{"VERSION":3,"ADDED":374}	String line="";
+{"VERSION":3,"ADDED":375}	try {
+{"VERSION":3,"ADDED":376}	BufferedReader buff=new BufferedReader(new FileReader(locFile.getPath()));
+{"VERSION":3,"ADDED":377}	while((line=buff.readLine())!=null){
+{"VERSION":3,"ADDED":378}	line=Pattern.compile(String.format("\\<+ChangeCounter+\\>")).matcher(line).replaceAll("<PreviousChangeCounter>");
+{"VERSION":3,"ADDED":379}	line=Pattern.compile(String.format("\\<+VERSION+\\>")).matcher(line).replaceAll("<PreviousVERSION>");
+{"VERSION":3,"ADDED":380}	line=Pattern.compile(String.format("\\<+AUTHOR+\\>")).matcher(line).replaceAll("<PreviousAUTHOR>");
+{"VERSION":3,"ADDED":381}	line=Pattern.compile(String.format("\\<+CHANGES_DATE+\\>")).matcher(line).replaceAll("<PreviousCHANGES_DATE>");
+{"VERSION":3,"ADDED":382}	line=Pattern.compile(String.format("\\<+CHANGES_REASON+\\>")).matcher(line).replaceAll("<PreviousCHANGES_REASON>");
+{"VERSION":3,"ADDED":383}	line=Pattern.compile(String.format("\\<+TOTAL_LOCS+\\>")).matcher(line).replaceAll("<PreviousTOTAL_LOCS>");
+{"VERSION":3,"ADDED":384}	line=Pattern.compile(String.format("\\<+TOTAL_LOCS_ADDED+\\>")).matcher(line).replaceAll("<PreviousTOTAL_LOCS_ADDED>");
+{"VERSION":3,"ADDED":385}	line=Pattern.compile(String.format("\\<+TOTAL_LOCS_DELETED+\\>")).matcher(line).replaceAll("<PreviousTOTAL_LOCS_DELETED>");
+{"VERSION":3,"ADDED":386}	fileLines.append(line+"\r\n");
+{"VERSION":3,"ADDED":387}	buff.close();
+{"VERSION":3,"ADDED":388}	} catch (FileNotFoundException e) {
+{"VERSION":3,"ADDED":389}	e.printStackTrace();
+{"VERSION":3,"ADDED":390}	} catch (IOException e) {
+{"VERSION":3,"ADDED":391}	e.printStackTrace();
+{"VERSION":3,"ADDED":392}	return fileLines;
+{"VERSION":3,"ADDED":393}	private void searchMain(LOCFile modifiedLOCFile) throws ModificationServiceException {
+{"VERSION":3,"ADDED":394}	List<LineCode> locsModifiedFile = modifiedLOCFile.getLocs();
+{"VERSION":3,"ADDED":395}	try {
+{"VERSION":3,"ADDED":396}	for (int i = 0; i < locsModifiedFile.size(); i++) {
+{"VERSION":3,"ADDED":397}	LineCode line = new LineCode();
+{"VERSION":3,"ADDED":398}	if (locsModifiedFile.get(i)!=null) {
+{"VERSION":3,"ADDED":399}	if (locsModifiedFile.get(i).isMain()){
+{"VERSION":3,"ADDED":400}	modifiedLOCFile.setMain(true);
+{"VERSION":3,"ADDED":401}	} catch (Exception e) {
+{"VERSION":3,"ADDED":402}	throw new ModificationServiceException("Excepción al buscar la clase que contiene el main" + modifiedLOCFile.getName(), e.getCause());

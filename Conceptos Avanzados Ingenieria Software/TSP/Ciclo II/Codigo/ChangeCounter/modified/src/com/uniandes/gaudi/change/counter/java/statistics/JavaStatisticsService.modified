@@ -1,0 +1,130 @@
+{"VERSION":3,"ADDED":1}	package com.uniandes.gaudi.change.counter.java.statistics;
+{"VERSION":3,"ADDED":2}	import java.io.File;
+{"VERSION":3,"ADDED":3}	import java.io.FileWriter;
+{"VERSION":3,"ADDED":4}	import java.io.IOException;
+{"VERSION":3,"ADDED":5}	import java.util.ArrayList;
+{"VERSION":3,"ADDED":6}	import java.util.HashMap;
+{"VERSION":3,"ADDED":7}	import java.util.HashSet;
+{"VERSION":3,"ADDED":8}	import java.util.List;
+{"VERSION":3,"ADDED":9}	import java.util.Map;
+{"VERSION":3,"ADDED":10}	import java.util.Set;
+{"VERSION":3,"ADDED":11}	import java.util.regex.Matcher;
+{"VERSION":3,"ADDED":12}	import java.util.regex.Pattern;
+{"VERSION":3,"ADDED":13}	import org.json.JSONObject;
+{"VERSION":3,"ADDED":14}	import com.uniandes.gaudi.change.counter.analyzer.exception.AnalyzerServiceException;
+{"VERSION":3,"ADDED":15}	import com.uniandes.gaudi.change.counter.entity.ChangeLOCStructure;
+{"VERSION":3,"ADDED":16}	import com.uniandes.gaudi.change.counter.entity.ChangeStatistics;
+{"VERSION":3,"ADDED":17}	import com.uniandes.gaudi.change.counter.entity.ChangeType;
+{"VERSION":3,"ADDED":18}	import com.uniandes.gaudi.change.counter.entity.CompareInfo;
+{"VERSION":3,"ADDED":19}	import com.uniandes.gaudi.change.counter.entity.LOCFile;
+{"VERSION":3,"ADDED":20}	import com.uniandes.gaudi.change.counter.entity.LOCFileStructure;
+{"VERSION":3,"ADDED":21}	import com.uniandes.gaudi.change.counter.entity.LineCode;
+{"VERSION":3,"ADDED":22}	import com.uniandes.gaudi.change.counter.modification.exception.ModificationServiceException;
+{"VERSION":3,"ADDED":23}	import com.uniandes.gaudi.change.counter.statistics.exception.StatisticsServiceException;
+{"VERSION":3,"ADDED":24}	import com.uniandes.gaudi.change.counter.statistics.service.StatisticsService;
+{"VERSION":3,"ADDED":25}	import com.uniandes.gaudi.change.counter.util.file.FileUtil;
+{"VERSION":3,"ADDED":26}	public class JavaStatisticsService implements StatisticsService{
+{"VERSION":3,"ADDED":27}	@Override
+{"VERSION":3,"ADDED":28}	public void generateStatistics(LOCFileStructure modifiedFileStructure, String destinationPath)
+{"VERSION":3,"ADDED":29}	throws StatisticsServiceException {
+{"VERSION":3,"ADDED":30}	if ( modifiedFileStructure == null) {
+{"VERSION":3,"ADDED":31}	throw new StatisticsServiceException("Las estructuras de archivos a sacar las estadisticas no pueden ser null");
+{"VERSION":3,"ADDED":32}	Map<String, Map<String, LOCFile>> modifiedPackageFiles = modifiedFileStructure.getPackageFiles();
+{"VERSION":3,"ADDED":33}	StringBuilder lineContent=new StringBuilder();
+{"VERSION":3,"ADDED":34}	Set<String> modifiedPackages = modifiedPackageFiles.keySet();
+{"VERSION":3,"ADDED":35}	Set<String> allPackages = new HashSet<String>();
+{"VERSION":3,"ADDED":36}	allPackages.addAll(modifiedPackages);
+{"VERSION":3,"ADDED":37}	try {
+{"VERSION":3,"ADDED":38}	for (String packageName : allPackages) {
+{"VERSION":3,"ADDED":39}	Map<String, LOCFile> modifiedLOCFiles = modifiedPackageFiles.get(packageName);
+{"VERSION":3,"ADDED":40}	Set<String> modifiedClases = modifiedLOCFiles.keySet();
+{"VERSION":3,"ADDED":41}	Set<String> allClasses = new HashSet<String>();
+{"VERSION":3,"ADDED":42}	allClasses.addAll(modifiedClases);
+{"VERSION":3,"ADDED":43}	for (String className : allClasses) {
+{"VERSION":3,"ADDED":44}	List<LineCode> locsModifiedFile = modifiedLOCFiles.get(className).getLocs();
+{"VERSION":3,"ADDED":45}	int totalAdded = 0;
+{"VERSION":3,"ADDED":46}	int totalDeleted = 0;
+{"VERSION":3,"ADDED":47}	int totalAdded2 = 0;
+{"VERSION":3,"ADDED":48}	int totalDeleted2 = 0;
+{"VERSION":3,"ADDED":49}	double version=0;
+{"VERSION":3,"ADDED":50}	double version2=0;
+{"VERSION":3,"ADDED":51}	lineContent.append("CLASS :<");
+{"VERSION":3,"ADDED":52}	lineContent.append( modifiedLOCFiles.get(className).getName()+">{\r\n");
+{"VERSION":3,"ADDED":53}	StringBuilder lines=new StringBuilder();
+{"VERSION":3,"ADDED":54}	StringBuilder lines2=new StringBuilder();
+{"VERSION":3,"ADDED":55}	for (int i = 0; i < locsModifiedFile.size(); i++) {
+{"VERSION":3,"ADDED":56}	String vec[];
+{"VERSION":3,"ADDED":57}	String line="";
+{"VERSION":3,"ADDED":58}	if (locsModifiedFile.get(i)!=null) {
+{"VERSION":3,"ADDED":59}	line =  locsModifiedFile.get(i).getLine();
+{"VERSION":3,"ADDED":60}	vec=line.split("\t");
+{"VERSION":3,"ADDED":61}	JSONObject jsonObject = new JSONObject(vec[0]);
+{"VERSION":3,"ADDED":62}	if(i==0){
+{"VERSION":3,"ADDED":63}	version=jsonObject.getDouble("VERSION");
+{"VERSION":3,"ADDED":64}	if(version!=jsonObject.getDouble("VERSION")){
+{"VERSION":3,"ADDED":65}	version2=jsonObject.getDouble("VERSION");
+{"VERSION":3,"ADDED":66}	if(isDeleted(line)){
+{"VERSION":3,"ADDED":67}	totalDeleted2++;
+{"VERSION":3,"ADDED":68}	if(isAdded(line)){
+{"VERSION":3,"ADDED":69}	totalAdded2++;
+{"VERSION":3,"ADDED":70}	lines2.append("<"+line.split("\t")[1]+">\r\n");
+{"VERSION":3,"ADDED":71}	else{
+{"VERSION":3,"ADDED":72}	if(isDeleted(line)){
+{"VERSION":3,"ADDED":73}	totalDeleted++;
+{"VERSION":3,"ADDED":74}	if(isAdded(line)){
+{"VERSION":3,"ADDED":75}	totalAdded++;
+{"VERSION":3,"ADDED":76}	lines.append("<"+line.split("\t")[1]+">\r\n");
+{"VERSION":3,"ADDED":77}	lineContent.append("VERSION :<"+version +">{\r\n");
+{"VERSION":3,"ADDED":78}	lineContent.append("LOCS AGREGADOS :<"+totalAdded +">\r\n");
+{"VERSION":3,"ADDED":79}	lineContent.append("LOCS ELIMINADOS :<"+totalDeleted +">\r\n");
+{"VERSION":3,"ADDED":80}	lineContent.append("LINEAS:" +"\r\n");
+{"VERSION":3,"ADDED":81}	lineContent.append(lines.toString());
+{"VERSION":3,"ADDED":82}	lineContent.append("}\r\n\r\n");
+{"VERSION":3,"ADDED":83}	if(version2!=0){
+{"VERSION":3,"ADDED":84}	lineContent.append("VERSION :<"+version2 +">{\r\n");
+{"VERSION":3,"ADDED":85}	lineContent.append("LOCS AGREGADOS :<"+totalAdded2 +">\r\n");
+{"VERSION":3,"ADDED":86}	lineContent.append("LOCS ELIMINADOS :<"+totalDeleted2 +">\r\n\r\n");
+{"VERSION":3,"ADDED":87}	lineContent.append("LINEAS:" +"\r\n");
+{"VERSION":3,"ADDED":88}	lineContent.append(lines2.toString());
+{"VERSION":3,"ADDED":89}	lineContent.append("}\r\n");
+{"VERSION":3,"ADDED":90}	lineContent.append("}\r\n\r\n");
+{"VERSION":3,"ADDED":91}	else{
+{"VERSION":3,"ADDED":92}	lineContent.append("}\r\n\r\n");
+{"VERSION":3,"ADDED":93}	createFile(lineContent,destinationPath);
+{"VERSION":3,"ADDED":94}	} catch (Exception e) {
+{"VERSION":3,"ADDED":95}	throw new StatisticsServiceException("Excepción buscar las clases en el paquete" + modifiedFileStructure.getPath(), e.getCause());
+{"VERSION":3,"ADDED":96}	/**
+{"VERSION":3,"ADDED":97}	* This method create the new file with the estatistics
+{"VERSION":3,"ADDED":98}	* @param destinationPath
+{"VERSION":3,"ADDED":99}	* @param location
+{"VERSION":3,"ADDED":100}	* @param labelLine
+{"VERSION":3,"ADDED":101}	* @throws StatisticsServiceException
+{"VERSION":3,"ADDED":102}	* @throws ModificationServiceException
+{"VERSION":3,"ADDED":103}	*/
+{"VERSION":3,"ADDED":104}	public void createFile(StringBuilder fileContent, String destinationPath ) throws StatisticsServiceException {
+{"VERSION":3,"ADDED":105}	File newFile = new File(destinationPath+"\\Estadisticas.txt");
+{"VERSION":3,"ADDED":106}	FileWriter writer = null;
+{"VERSION":3,"ADDED":107}	try {
+{"VERSION":3,"ADDED":108}	writer = new FileWriter(newFile);
+{"VERSION":3,"ADDED":109}	writer.append(fileContent.toString());
+{"VERSION":3,"ADDED":110}	writer.flush();
+{"VERSION":3,"ADDED":111}	} catch (IOException e) {
+{"VERSION":3,"ADDED":112}	throw new StatisticsServiceException(e.getMessage(),e);
+{"VERSION":3,"ADDED":113}	}finally{
+{"VERSION":3,"ADDED":114}	try {
+{"VERSION":3,"ADDED":115}	writer.close();
+{"VERSION":3,"ADDED":116}	} catch (IOException e) {
+{"VERSION":3,"ADDED":117}	private boolean isAdded(String line) {
+{"VERSION":3,"ADDED":118}	String expression = String.format(".*?DELETED+.*");
+{"VERSION":3,"ADDED":119}	return evaluateExpression( line,expression);
+{"VERSION":3,"ADDED":120}	private boolean isDeleted(String line) {
+{"VERSION":3,"ADDED":121}	String expression = String.format(".*?ADDED+.*");
+{"VERSION":3,"ADDED":122}	return evaluateExpression( line,expression);
+{"VERSION":3,"ADDED":123}	/**
+{"VERSION":3,"ADDED":124}	*  This method evaluates a regex expression
+{"VERSION":3,"ADDED":125}	* @param regex to compare
+{"VERSION":3,"ADDED":126}	*/
+{"VERSION":3,"ADDED":127}	private Boolean evaluateExpression( String line,String regex) {
+{"VERSION":3,"ADDED":128}	Pattern pattern = Pattern.compile(regex);
+{"VERSION":3,"ADDED":129}	Matcher matcher = pattern.matcher(line);
+{"VERSION":3,"ADDED":130}	return matcher.matches();

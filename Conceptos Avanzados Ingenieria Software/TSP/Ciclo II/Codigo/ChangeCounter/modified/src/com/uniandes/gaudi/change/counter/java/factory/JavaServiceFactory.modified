@@ -1,0 +1,117 @@
+{"VERSION":2,"KEPT":0}	package com.uniandes.gaudi.change.counter.java.factory;
+{"VERSION":2,"KEPT":1}	import com.uniandes.gaudi.change.counter.analyzer.service.AnalyzerService;
+{"VERSION":2,"KEPT":2}	import com.uniandes.gaudi.change.counter.factory.ServiceAbstractFactory;
+{"VERSION":2,"KEPT":3}	import com.uniandes.gaudi.change.counter.file.service.FileFilter;
+{"VERSION":2,"KEPT":4}	import com.uniandes.gaudi.change.counter.file.service.FileService;
+{"VERSION":2,"KEPT":5}	import com.uniandes.gaudi.change.counter.file.service.LOCFileParser;
+{"VERSION":2,"KEPT":6}	import com.uniandes.gaudi.change.counter.file.service.LanguageFileService;
+{"VERSION":2,"KEPT":7}	import com.uniandes.gaudi.change.counter.java.analyzer.service.JavaAnalyzerService;
+{"VERSION":2,"KEPT":8}	import com.uniandes.gaudi.change.counter.java.file.JavaLOCFileParser;
+{"VERSION":2,"KEPT":9}	import com.uniandes.gaudi.change.counter.java.modification.service.ModificationClient;
+{"VERSION":3,"ADDED":10}	import com.uniandes.gaudi.change.counter.java.statistics.JavaStatisticsService;
+{"VERSION":3,"DELETED":11}	import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
+{"VERSION":3,"ADDED":12}	import com.uniandes.gaudi.change.counter.modification.service.ModificationService;
+{"VERSION":3,"DELETED":13}	import com.uniandes.gaudi.change.counter.statistics.service.StatisticsService;
+{"VERSION":3,"ADDED":14}	import com.uniandes.gaudi.change.counter.statistics.service.StatisticsService;
+{"VERSION":3,"DELETED":15}	/**
+{"VERSION":3,"ADDED":16}	/**
+{"VERSION":3,"DELETED":17}	* This class implements the logic to get the instances for java service modules
+{"VERSION":3,"ADDED":18}	* This class implements the logic to get the instances for java service modules
+{"VERSION":3,"DELETED":19}	*
+{"VERSION":3,"ADDED":20}	*
+{"VERSION":3,"DELETED":21}	* @class JavaServiceFactory.java
+{"VERSION":3,"ADDED":22}	* @class JavaServiceFactory.java
+{"VERSION":3,"DELETED":23}	* @author Felipe
+{"VERSION":3,"ADDED":24}	* @author Felipe
+{"VERSION":3,"DELETED":25}	* @Date 7/04/2013
+{"VERSION":3,"ADDED":26}	* @Date 7/04/2013
+{"VERSION":3,"DELETED":27}	* @since 1.0
+{"VERSION":3,"ADDED":28}	* @since 1.0
+{"VERSION":3,"DELETED":29}	*/
+{"VERSION":3,"ADDED":30}	*/
+{"VERSION":3,"DELETED":31}	public class JavaServiceFactory extends ServiceAbstractFactory {
+{"VERSION":3,"ADDED":32}	public class JavaServiceFactory extends ServiceAbstractFactory {
+{"VERSION":3,"DELETED":33}	/**
+{"VERSION":3,"ADDED":34}	/**
+{"VERSION":3,"DELETED":35}	* This method returns an instance for the analyzer service
+{"VERSION":3,"ADDED":36}	* This method returns an instance for the analyzer service
+{"VERSION":3,"DELETED":37}	*
+{"VERSION":3,"ADDED":38}	*
+{"VERSION":3,"DELETED":39}	* @return analyzer service instance
+{"VERSION":3,"ADDED":40}	* @return analyzer service instance
+{"VERSION":3,"DELETED":41}	*/
+{"VERSION":3,"ADDED":42}	*/
+{"VERSION":3,"DELETED":43}	@Override
+{"VERSION":3,"ADDED":44}	@Override
+{"VERSION":3,"DELETED":45}	public AnalyzerService getAnalyzerService() {
+{"VERSION":3,"ADDED":46}	public AnalyzerService getAnalyzerService() {
+{"VERSION":3,"DELETED":47}	return new JavaAnalyzerService();
+{"VERSION":3,"ADDED":48}	return new JavaAnalyzerService();
+{"VERSION":3,"DELETED":49}	/**
+{"VERSION":3,"ADDED":50}	/**
+{"VERSION":3,"DELETED":51}	* This method returns an instance for the file service with specific
+{"VERSION":3,"ADDED":52}	* This method returns an instance for the file service with specific
+{"VERSION":3,"DELETED":53}	* java parser and file filter
+{"VERSION":3,"ADDED":54}	* java parser and file filter
+{"VERSION":3,"DELETED":55}	*
+{"VERSION":3,"ADDED":56}	*
+{"VERSION":3,"DELETED":57}	* @return file service instance
+{"VERSION":3,"ADDED":58}	* @return file service instance
+{"VERSION":3,"DELETED":59}	*/
+{"VERSION":3,"ADDED":60}	*/
+{"VERSION":3,"DELETED":61}	@Override
+{"VERSION":3,"ADDED":62}	@Override
+{"VERSION":3,"DELETED":63}	public FileService getFileService() {
+{"VERSION":3,"ADDED":64}	public FileService getModifiedFileService() {
+{"VERSION":3,"DELETED":65}	LOCFileParser locFileParser = new JavaLOCFileParser();
+{"VERSION":3,"ADDED":66}	LOCFileParser locFileParser = new JavaLOCFileParser();
+{"VERSION":3,"DELETED":67}	FileFilter fileFilter = new FileFilter(".java");
+{"VERSION":3,"ADDED":68}	FileFilter fileFilter = new FileFilter(".modified");
+{"VERSION":3,"DELETED":69}	LanguageFileService fileService = new LanguageFileService(locFileParser, fileFilter);
+{"VERSION":3,"ADDED":70}	LanguageFileService fileService = new LanguageFileService(locFileParser, fileFilter);
+{"VERSION":3,"DELETED":71}	return fileService;
+{"VERSION":3,"ADDED":72}	return fileService;
+{"VERSION":3,"DELETED":73}	/**
+{"VERSION":3,"ADDED":74}	/**
+{"VERSION":3,"DELETED":75}	* This method returns an instance for the modification service
+{"VERSION":3,"ADDED":76}	* This method returns an instance for the file service with specific
+{"VERSION":3,"DELETED":77}	*
+{"VERSION":3,"ADDED":78}	* java parser and file filter
+{"VERSION":3,"DELETED":79}	* @return modification service instance
+{"VERSION":3,"ADDED":80}	*
+{"VERSION":3,"DELETED":81}	*/
+{"VERSION":3,"ADDED":82}	* @return file service instance
+{"VERSION":3,"DELETED":83}	@Override
+{"VERSION":3,"ADDED":84}	*/
+{"VERSION":3,"DELETED":85}	public ModificationService getModificationService() {
+{"VERSION":3,"ADDED":86}	@Override
+{"VERSION":3,"DELETED":87}	return new ModificationClient();
+{"VERSION":3,"ADDED":88}	public FileService getFileService() {
+{"VERSION":3,"DELETED":89}	/**
+{"VERSION":3,"ADDED":90}	LOCFileParser locFileParser = new JavaLOCFileParser();
+{"VERSION":3,"DELETED":91}	* This method returns an instance for the statistics service
+{"VERSION":3,"ADDED":92}	FileFilter fileFilter = new FileFilter(".java");
+{"VERSION":3,"DELETED":93}	*
+{"VERSION":3,"ADDED":94}	LanguageFileService fileService = new LanguageFileService(locFileParser, fileFilter);
+{"VERSION":3,"DELETED":95}	* @return statistics service instance
+{"VERSION":3,"ADDED":96}	return fileService;
+{"VERSION":3,"DELETED":97}	*/
+{"VERSION":3,"ADDED":98}	/**
+{"VERSION":3,"DELETED":99}	@Override
+{"VERSION":3,"ADDED":100}	* This method returns an instance for the modification service
+{"VERSION":3,"DELETED":101}	public StatisticsService getStatisticsService() {
+{"VERSION":3,"ADDED":102}	*
+{"VERSION":3,"DELETED":103}	return null;
+{"VERSION":3,"ADDED":104}	* @return modification service instance
+{"VERSION":3,"ADDED":105}	*/
+{"VERSION":3,"ADDED":106}	@Override
+{"VERSION":3,"ADDED":107}	public ModificationService getModificationService() {
+{"VERSION":3,"ADDED":108}	return new ModificationClient();
+{"VERSION":3,"ADDED":109}	/**
+{"VERSION":3,"ADDED":110}	* This method returns an instance for the statistics service
+{"VERSION":3,"ADDED":111}	*
+{"VERSION":3,"ADDED":112}	* @return statistics service instance
+{"VERSION":3,"ADDED":113}	*/
+{"VERSION":3,"ADDED":114}	@Override
+{"VERSION":3,"ADDED":115}	public StatisticsService getStatisticsService() {
+{"VERSION":3,"ADDED":116}	return new JavaStatisticsService();

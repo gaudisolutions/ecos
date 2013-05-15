@@ -1,0 +1,55 @@
+{"VERSION":2,"KEPT":0}	package com.uniandes.gaudi.change.counter.java.modification.service;
+{"VERSION":2,"KEPT":1}	/**
+{"VERSION":2,"KEPT":2}	* This class represents a folder
+{"VERSION":2,"KEPT":3}	* @class Folder.java
+{"VERSION":2,"KEPT":4}	* @author maria
+{"VERSION":2,"KEPT":5}	* @Date 8/04/2013
+{"VERSION":2,"KEPT":6}	* @since 1.0
+{"VERSION":2,"KEPT":7}	*/
+{"VERSION":2,"KEPT":8}	public class Folder {
+{"VERSION":2,"KEPT":9}	private String name;
+{"VERSION":2,"KEPT":10}	/**
+{"VERSION":2,"KEPT":11}	* Higest level is 0
+{"VERSION":2,"KEPT":12}	*/
+{"VERSION":2,"KEPT":13}	private int level;
+{"VERSION":2,"KEPT":14}	/**
+{"VERSION":2,"KEPT":15}	* Constructor with params
+{"VERSION":2,"KEPT":16}	* @param name
+{"VERSION":2,"KEPT":17}	* @param level
+{"VERSION":2,"KEPT":18}	*/
+{"VERSION":2,"KEPT":19}	public Folder(String name, int level) {
+{"VERSION":2,"KEPT":20}	super();
+{"VERSION":2,"KEPT":21}	this.name = name;
+{"VERSION":2,"KEPT":22}	this.level = level;
+{"VERSION":2,"KEPT":23}	/**
+{"VERSION":2,"KEPT":24}	* Returns the folder name
+{"VERSION":2,"KEPT":25}	* @return name
+{"VERSION":2,"KEPT":26}	*/
+{"VERSION":2,"KEPT":27}	public String getName() {
+{"VERSION":2,"KEPT":28}	return name;
+{"VERSION":2,"KEPT":29}	/**
+{"VERSION":2,"KEPT":30}	* Sets the folder name
+{"VERSION":2,"KEPT":31}	* @param name
+{"VERSION":2,"KEPT":32}	*/
+{"VERSION":2,"KEPT":33}	public void setName(String name) {
+{"VERSION":2,"KEPT":34}	this.name = name;
+{"VERSION":2,"KEPT":35}	/**
+{"VERSION":2,"KEPT":36}	* Returns the folder level
+{"VERSION":2,"KEPT":37}	* @return level
+{"VERSION":2,"KEPT":38}	*/
+{"VERSION":2,"KEPT":39}	public int getLevel() {
+{"VERSION":2,"KEPT":40}	return level;
+{"VERSION":2,"KEPT":41}	/**
+{"VERSION":2,"KEPT":42}	* Sets the folder level
+{"VERSION":2,"KEPT":43}	* @param level
+{"VERSION":2,"KEPT":44}	*/
+{"VERSION":2,"KEPT":45}	public void setLevel(int level) {
+{"VERSION":2,"KEPT":46}	this.level = level;
+{"VERSION":2,"KEPT":47}	@Override
+{"VERSION":2,"KEPT":48}	public boolean equals(Object arg0) {
+{"VERSION":2,"KEPT":49}	boolean result=false;
+{"VERSION":2,"KEPT":50}	if(arg0 instanceof Folder){
+{"VERSION":2,"KEPT":51}	Folder folder= (Folder) arg0;
+{"VERSION":2,"KEPT":52}	if(folder.getLevel()==this.getLevel() && folder.getName().equals(this.getName())){
+{"VERSION":2,"KEPT":53}	result=true;
+{"VERSION":2,"KEPT":54}	return result;

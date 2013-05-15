@@ -1,0 +1,461 @@
+{"VERSION":2,"KEPT":0}	package com.uniandes.gaudi.change.counter.java.analyzer.service;
+{"VERSION":2,"KEPT":1}	import java.math.BigInteger;
+{"VERSION":2,"KEPT":2}	import java.util.ArrayList;
+{"VERSION":2,"KEPT":3}	import java.util.Collection;
+{"VERSION":2,"KEPT":4}	import java.util.HashMap;
+{"VERSION":2,"KEPT":5}	import java.util.HashSet;
+{"VERSION":2,"KEPT":6}	import java.util.List;
+{"VERSION":2,"KEPT":7}	import java.util.Map;
+{"VERSION":2,"KEPT":8}	import java.util.Set;
+{"VERSION":3,"ADDED":9}	import java.util.regex.Matcher;
+{"VERSION":3,"DELETED":10}	import com.uniandes.gaudi.change.counter.analyzer.exception.AnalyzerServiceException;
+{"VERSION":3,"ADDED":11}	import java.util.regex.Pattern;
+{"VERSION":3,"DELETED":12}	import com.uniandes.gaudi.change.counter.analyzer.service.AnalyzerService;
+{"VERSION":3,"ADDED":13}	import com.uniandes.gaudi.change.counter.analyzer.exception.AnalyzerServiceException;
+{"VERSION":3,"DELETED":14}	import com.uniandes.gaudi.change.counter.entity.ChangeLOCStructure;
+{"VERSION":3,"ADDED":15}	import com.uniandes.gaudi.change.counter.analyzer.service.AnalyzerService;
+{"VERSION":3,"DELETED":16}	import com.uniandes.gaudi.change.counter.entity.ChangeType;
+{"VERSION":3,"ADDED":17}	import com.uniandes.gaudi.change.counter.entity.ChangeLOCStructure;
+{"VERSION":3,"DELETED":18}	import com.uniandes.gaudi.change.counter.entity.CompareInfo;
+{"VERSION":3,"ADDED":19}	import com.uniandes.gaudi.change.counter.entity.ChangeType;
+{"VERSION":3,"DELETED":20}	import com.uniandes.gaudi.change.counter.entity.LOCFile;
+{"VERSION":3,"ADDED":21}	import com.uniandes.gaudi.change.counter.entity.CompareInfo;
+{"VERSION":3,"DELETED":22}	import com.uniandes.gaudi.change.counter.entity.LOCFileStructure;
+{"VERSION":3,"ADDED":23}	import com.uniandes.gaudi.change.counter.entity.LOCFile;
+{"VERSION":3,"DELETED":24}	import com.uniandes.gaudi.change.counter.entity.LineCode;
+{"VERSION":3,"ADDED":25}	import com.uniandes.gaudi.change.counter.entity.LOCFileStructure;
+{"VERSION":3,"DELETED":26}	/**
+{"VERSION":3,"ADDED":27}	import com.uniandes.gaudi.change.counter.entity.LineCode;
+{"VERSION":3,"DELETED":28}	* This class represents the implementation of Analyzer module
+{"VERSION":3,"ADDED":29}	/**
+{"VERSION":3,"DELETED":30}	* for Java Language
+{"VERSION":3,"ADDED":31}	* This class represents the implementation of Analyzer module
+{"VERSION":3,"DELETED":32}	* @class JavaAnalyzerService.java
+{"VERSION":3,"ADDED":33}	* for Java Language
+{"VERSION":3,"DELETED":34}	* @author Julián
+{"VERSION":3,"ADDED":35}	* @class JavaAnalyzerService.java
+{"VERSION":3,"DELETED":36}	* @Date 07/04/2013
+{"VERSION":3,"ADDED":37}	* @author Julián
+{"VERSION":3,"DELETED":38}	* @since 1.0
+{"VERSION":3,"ADDED":39}	* @Date 07/04/2013
+{"VERSION":3,"DELETED":40}	*/
+{"VERSION":3,"ADDED":41}	* @since 1.0
+{"VERSION":3,"DELETED":42}	public class JavaAnalyzerService implements AnalyzerService{
+{"VERSION":3,"ADDED":43}	*/
+{"VERSION":3,"DELETED":44}	/**
+{"VERSION":3,"ADDED":45}	public class JavaAnalyzerService implements AnalyzerService{
+{"VERSION":3,"DELETED":46}	* This method performs the change analysis in every file
+{"VERSION":3,"ADDED":47}	/**
+{"VERSION":3,"DELETED":48}	*
+{"VERSION":3,"ADDED":49}	* This method performs the change analysis in every file
+{"VERSION":3,"DELETED":50}	* @param actualFileStructure with the actual file structure
+{"VERSION":3,"ADDED":51}	*
+{"VERSION":3,"DELETED":52}	* @param modifiedFileStructure with the modified file structure
+{"VERSION":3,"ADDED":53}	* @param actualFileStructure with the actual file structure
+{"VERSION":3,"DELETED":54}	* @return change structure with the modification information
+{"VERSION":3,"ADDED":55}	* @param modifiedFileStructure with the modified file structure
+{"VERSION":3,"DELETED":56}	* @throws AnalyzerServiceException
+{"VERSION":3,"ADDED":57}	* @return change structure with the modification information
+{"VERSION":3,"DELETED":58}	*/
+{"VERSION":3,"ADDED":59}	* @throws AnalyzerServiceException
+{"VERSION":3,"DELETED":60}	@Override
+{"VERSION":3,"ADDED":61}	*/
+{"VERSION":3,"DELETED":62}	public ChangeLOCStructure performAnalysis(LOCFileStructure actualFileStructure, LOCFileStructure modifiedFileStructure) throws AnalyzerServiceException {
+{"VERSION":3,"ADDED":63}	@Override
+{"VERSION":3,"DELETED":64}	if (actualFileStructure == null && modifiedFileStructure == null) {
+{"VERSION":3,"ADDED":65}	public ChangeLOCStructure performAnalysis(LOCFileStructure actualFileStructure, LOCFileStructure modifiedFileStructure) throws AnalyzerServiceException {
+{"VERSION":3,"DELETED":66}	throw new AnalyzerServiceException("Las estructuras de archivos a comparar no pueden ser nulas");
+{"VERSION":3,"ADDED":67}	if (actualFileStructure == null && modifiedFileStructure == null) {
+{"VERSION":3,"DELETED":68}	ChangeLOCStructure changeLOCStructure = new ChangeLOCStructure();
+{"VERSION":3,"ADDED":69}	throw new AnalyzerServiceException("Las estructuras de archivos a comparar no pueden ser nulas");
+{"VERSION":3,"DELETED":70}	changeLOCStructure = new ChangeLOCStructure();
+{"VERSION":3,"ADDED":71}	ChangeLOCStructure changeLOCStructure = new ChangeLOCStructure();
+{"VERSION":3,"DELETED":72}	changeLOCStructure.setCompareInfo(new CompareInfo());
+{"VERSION":3,"ADDED":73}	changeLOCStructure = new ChangeLOCStructure();
+{"VERSION":3,"DELETED":74}	changeLOCStructure.getCompareInfo().setActualPath(actualFileStructure.getPath());
+{"VERSION":3,"ADDED":75}	changeLOCStructure.setCompareInfo(new CompareInfo());
+{"VERSION":3,"DELETED":76}	changeLOCStructure.getCompareInfo().setModifiedPath(modifiedFileStructure.getPath());
+{"VERSION":3,"ADDED":77}	changeLOCStructure.getCompareInfo().setActualPath(actualFileStructure.getPath());
+{"VERSION":3,"DELETED":78}	Map<String, Map<String, LOCFile>> changedPackageFiles = new HashMap<String, Map<String,LOCFile>>();
+{"VERSION":3,"ADDED":79}	changeLOCStructure.getCompareInfo().setModifiedPath(modifiedFileStructure.getPath());
+{"VERSION":3,"DELETED":80}	Map<String, Map<String, LOCFile>> modifiedPackageFiles = modifiedFileStructure.getPackageFiles();
+{"VERSION":3,"ADDED":81}	Map<String, Map<String, LOCFile>> changedPackageFiles = new HashMap<String, Map<String,LOCFile>>();
+{"VERSION":3,"DELETED":82}	Map<String, Map<String, LOCFile>> actualPackageFiles = actualFileStructure.getPackageFiles();
+{"VERSION":3,"ADDED":83}	Map<String, Map<String, LOCFile>> modifiedPackageFiles = modifiedFileStructure.getPackageFiles();
+{"VERSION":3,"DELETED":84}	Set<String> modifiedPackages = modifiedPackageFiles.keySet();
+{"VERSION":3,"ADDED":85}	Map<String, Map<String, LOCFile>> actualPackageFiles = actualFileStructure.getPackageFiles();
+{"VERSION":3,"DELETED":86}	Set<String> actualPackages = actualPackageFiles.keySet();
+{"VERSION":3,"ADDED":87}	Set<String> modifiedPackages = modifiedPackageFiles.keySet();
+{"VERSION":3,"DELETED":88}	Set<String> allPackages = new HashSet<String>();
+{"VERSION":3,"ADDED":89}	Set<String> actualPackages = actualPackageFiles.keySet();
+{"VERSION":3,"DELETED":90}	allPackages.addAll(modifiedPackages);
+{"VERSION":3,"ADDED":91}	Set<String> allPackages = new HashSet<String>();
+{"VERSION":3,"DELETED":92}	allPackages.addAll(actualPackages);
+{"VERSION":3,"ADDED":93}	allPackages.addAll(modifiedPackages);
+{"VERSION":3,"DELETED":94}	try {
+{"VERSION":3,"ADDED":95}	allPackages.addAll(actualPackages);
+{"VERSION":3,"DELETED":96}	for (String packageName : allPackages) {
+{"VERSION":3,"ADDED":97}	try {
+{"VERSION":3,"DELETED":98}	Map<String, LOCFile> changedLOCFiles;
+{"VERSION":3,"ADDED":99}	for (String packageName : allPackages) {
+{"VERSION":3,"DELETED":100}	/* If the package exists in both structures (Actual and Modified) */
+{"VERSION":3,"ADDED":101}	Map<String, LOCFile> changedLOCFiles;
+{"VERSION":3,"DELETED":102}	if (modifiedPackageFiles.get(packageName) != null && actualPackageFiles.get(packageName) != null) {
+{"VERSION":3,"ADDED":103}	/* If the package exists in both structures (Actual and Modified) */
+{"VERSION":3,"DELETED":104}	changedLOCFiles = new HashMap<String, LOCFile>();
+{"VERSION":3,"ADDED":105}	if (modifiedPackageFiles.get(packageName) != null && actualPackageFiles.get(packageName) != null) {
+{"VERSION":3,"DELETED":106}	Map<String, LOCFile> actualLOCFiles = actualPackageFiles.get(packageName);
+{"VERSION":3,"ADDED":107}	changedLOCFiles = new HashMap<String, LOCFile>();
+{"VERSION":3,"DELETED":108}	Map<String, LOCFile> modifiedLOCFiles = modifiedPackageFiles.get(packageName);
+{"VERSION":3,"ADDED":109}	Map<String, LOCFile> actualLOCFiles = actualPackageFiles.get(packageName);
+{"VERSION":3,"DELETED":110}	Set<String> modifiedClases = modifiedLOCFiles.keySet();
+{"VERSION":3,"ADDED":111}	Map<String, LOCFile> modifiedLOCFiles = modifiedPackageFiles.get(packageName);
+{"VERSION":3,"DELETED":112}	Set<String> actualClases = actualLOCFiles.keySet();
+{"VERSION":3,"ADDED":113}	Set<String> modifiedClases = modifiedLOCFiles.keySet();
+{"VERSION":3,"DELETED":114}	Set<String> allClasses = new HashSet<String>();
+{"VERSION":3,"ADDED":115}	Set<String> actualClases = actualLOCFiles.keySet();
+{"VERSION":3,"DELETED":116}	allClasses.addAll(modifiedClases);
+{"VERSION":3,"ADDED":117}	Set<String> allClasses = new HashSet<String>();
+{"VERSION":3,"DELETED":118}	allClasses.addAll(actualClases);
+{"VERSION":3,"ADDED":119}	allClasses.addAll(modifiedClases);
+{"VERSION":3,"DELETED":120}	for (String className : allClasses) {
+{"VERSION":3,"ADDED":121}	allClasses.addAll(actualClases);
+{"VERSION":3,"DELETED":122}	/* If the class exists in both packages (Actual and Modified) */
+{"VERSION":3,"ADDED":123}	for (String className : allClasses) {
+{"VERSION":3,"DELETED":124}	if (modifiedLOCFiles.get(className) != null && actualLOCFiles.get(className) != null) {
+{"VERSION":3,"ADDED":125}	/* If the class exists in both packages (Actual and Modified) */
+{"VERSION":3,"DELETED":126}	LOCFile updatedLOCFile = compareLOCFiles(modifiedLOCFiles.get(className), actualLOCFiles.get(className));
+{"VERSION":3,"ADDED":127}	if (modifiedLOCFiles.get(className) != null && actualLOCFiles.get(className) != null) {
+{"VERSION":3,"DELETED":128}	changedLOCFiles.put(className, updatedLOCFile);
+{"VERSION":3,"ADDED":129}	LOCFile updatedLOCFile = compareLOCFiles(modifiedLOCFiles.get(className), actualLOCFiles.get(className));
+{"VERSION":3,"DELETED":130}	/* If the class was deleted from previous(Actual) program version -> All DELETED */
+{"VERSION":3,"ADDED":131}	changedLOCFiles.put(className, updatedLOCFile);
+{"VERSION":3,"DELETED":132}	if (modifiedLOCFiles.get(className) == null) {
+{"VERSION":3,"ADDED":133}	if(actualLOCFiles.get(className).isMain()){
+{"VERSION":3,"DELETED":134}	LOCFile deletedLOCFile = (LOCFile) actualLOCFiles.get(className).clone();
+{"VERSION":3,"ADDED":135}	changeLOCStructure.setVersion(searchVersion(actualLOCFiles.get(className)));
+{"VERSION":3,"DELETED":136}	addDeletedLOCFile(deletedLOCFile);
+{"VERSION":3,"ADDED":137}	/* If the class was deleted from previous(Actual) program version -> All DELETED */
+{"VERSION":3,"DELETED":138}	changedLOCFiles.put(className, deletedLOCFile);
+{"VERSION":3,"ADDED":139}	if (modifiedLOCFiles.get(className) == null) {
+{"VERSION":3,"DELETED":140}	/* If the class was added in the actual(Modified) program version -> All ADDED */
+{"VERSION":3,"ADDED":141}	LOCFile deletedLOCFile = (LOCFile) actualLOCFiles.get(className).clone();
+{"VERSION":3,"DELETED":142}	if (actualLOCFiles.get(className) == null) {
+{"VERSION":3,"ADDED":143}	addDeletedLOCFile(deletedLOCFile);
+{"VERSION":3,"DELETED":144}	LOCFile newLOCFile = (LOCFile) modifiedLOCFiles.get(className).clone();
+{"VERSION":3,"ADDED":145}	changedLOCFiles.put(className, deletedLOCFile);
+{"VERSION":3,"DELETED":146}	addNewLOCFile(newLOCFile);
+{"VERSION":3,"ADDED":147}	/* If the class was added in the actual(Modified) program version -> All ADDED */
+{"VERSION":3,"DELETED":148}	changedLOCFiles.put(className, newLOCFile);
+{"VERSION":3,"ADDED":149}	if (actualLOCFiles.get(className) == null) {
+{"VERSION":3,"DELETED":150}	changedPackageFiles.put(packageName, changedLOCFiles);
+{"VERSION":3,"ADDED":151}	LOCFile newLOCFile = (LOCFile) modifiedLOCFiles.get(className).clone();
+{"VERSION":3,"DELETED":152}	continue;
+{"VERSION":3,"ADDED":153}	addNewLOCFile(newLOCFile);
+{"VERSION":3,"DELETED":154}	/* If the package in modifiedFileStructure was deleted -> All DELETED */
+{"VERSION":3,"ADDED":155}	changedLOCFiles.put(className, newLOCFile);
+{"VERSION":3,"DELETED":156}	if (modifiedPackageFiles.get(packageName) == null) {
+{"VERSION":3,"ADDED":157}	changedPackageFiles.put(packageName, changedLOCFiles);
+{"VERSION":3,"DELETED":158}	changedLOCFiles = new HashMap<String, LOCFile>();
+{"VERSION":3,"ADDED":159}	continue;
+{"VERSION":3,"DELETED":160}	Map<String, LOCFile> locFilesPackage = actualPackageFiles.get(packageName);
+{"VERSION":3,"ADDED":161}	/* If the package in modifiedFileStructure was deleted -> All DELETED */
+{"VERSION":3,"DELETED":162}	for (LOCFile locFile : locFilesPackage.values()) {
+{"VERSION":3,"ADDED":163}	if (modifiedPackageFiles.get(packageName) == null) {
+{"VERSION":3,"DELETED":164}	LOCFile newLOCFile = (LOCFile) locFile.clone();
+{"VERSION":3,"ADDED":165}	changedLOCFiles = new HashMap<String, LOCFile>();
+{"VERSION":3,"DELETED":166}	addDeletedLOCFile(newLOCFile);
+{"VERSION":3,"ADDED":167}	Map<String, LOCFile> locFilesPackage = actualPackageFiles.get(packageName);
+{"VERSION":3,"DELETED":168}	changedLOCFiles.put(locFile.getName(), newLOCFile);
+{"VERSION":3,"ADDED":169}	for (LOCFile locFile : locFilesPackage.values()) {
+{"VERSION":3,"DELETED":170}	changedPackageFiles.put(packageName, changedLOCFiles);
+{"VERSION":3,"ADDED":171}	LOCFile newLOCFile = (LOCFile) locFile.clone();
+{"VERSION":3,"DELETED":172}	/* If the package in modifiedFileStructure is new -> All ADDED */
+{"VERSION":3,"ADDED":173}	addDeletedLOCFile(newLOCFile);
+{"VERSION":3,"DELETED":174}	if (actualPackageFiles.get(packageName) == null) {
+{"VERSION":3,"ADDED":175}	changedLOCFiles.put(locFile.getName(), newLOCFile);
+{"VERSION":3,"DELETED":176}	changedLOCFiles = new HashMap<String, LOCFile>();
+{"VERSION":3,"ADDED":177}	changedPackageFiles.put(packageName, changedLOCFiles);
+{"VERSION":3,"DELETED":178}	Map<String, LOCFile> locFilesPackage = modifiedPackageFiles.get(packageName);
+{"VERSION":3,"ADDED":179}	/* If the package in modifiedFileStructure is new -> All ADDED */
+{"VERSION":3,"DELETED":180}	for (LOCFile locFile : locFilesPackage.values()) {
+{"VERSION":3,"ADDED":181}	if (actualPackageFiles.get(packageName) == null) {
+{"VERSION":3,"DELETED":182}	LOCFile newLOCFile = (LOCFile) locFile.clone();
+{"VERSION":3,"ADDED":183}	changedLOCFiles = new HashMap<String, LOCFile>();
+{"VERSION":3,"DELETED":184}	addNewLOCFile(newLOCFile);
+{"VERSION":3,"ADDED":185}	Map<String, LOCFile> locFilesPackage = modifiedPackageFiles.get(packageName);
+{"VERSION":3,"DELETED":186}	changedLOCFiles.put(locFile.getName(), newLOCFile);
+{"VERSION":3,"ADDED":187}	for (LOCFile locFile : locFilesPackage.values()) {
+{"VERSION":3,"DELETED":188}	changedPackageFiles.put(packageName, changedLOCFiles);
+{"VERSION":3,"ADDED":189}	LOCFile newLOCFile = (LOCFile) locFile.clone();
+{"VERSION":3,"DELETED":190}	} catch (Exception e) {
+{"VERSION":3,"ADDED":191}	addNewLOCFile(newLOCFile);
+{"VERSION":3,"DELETED":192}	throw new AnalyzerServiceException("Excepción al comparar las clases del paquete" + modifiedFileStructure.getPath(), e.getCause());
+{"VERSION":3,"ADDED":193}	changedLOCFiles.put(locFile.getName(), newLOCFile);
+{"VERSION":3,"DELETED":194}	changeLOCStructure.setPackageFiles(changedPackageFiles);
+{"VERSION":3,"ADDED":195}	changedPackageFiles.put(packageName, changedLOCFiles);
+{"VERSION":3,"DELETED":196}	countLines(changeLOCStructure);
+{"VERSION":3,"ADDED":197}	} catch (Exception e) {
+{"VERSION":3,"DELETED":198}	return changeLOCStructure;
+{"VERSION":3,"ADDED":199}	throw new AnalyzerServiceException("Excepción al comparar las clases del paquete" + modifiedFileStructure.getPath(), e.getCause());
+{"VERSION":3,"DELETED":200}	/**
+{"VERSION":3,"ADDED":201}	changeLOCStructure.setPackageFiles(changedPackageFiles);
+{"VERSION":3,"DELETED":202}	* This is the method in charge of calculate total lines for the new program version and update the change structure
+{"VERSION":3,"ADDED":203}	countLines(changeLOCStructure);
+{"VERSION":3,"DELETED":204}	* @param change structure with total lines including added
+{"VERSION":3,"ADDED":205}	return changeLOCStructure;
+{"VERSION":3,"DELETED":206}	* and deleted lines in the new program version
+{"VERSION":3,"ADDED":207}	public boolean isVersionLine(String line) {
+{"VERSION":3,"DELETED":208}	* @throws AnalyzerServiceException
+{"VERSION":3,"ADDED":209}	String expression = String.format("\\*+\\<+VERSION+\\>+ \\w+.*");
+{"VERSION":3,"DELETED":210}	*/
+{"VERSION":3,"ADDED":211}	return evaluateExpression( line,expression);
+{"VERSION":3,"DELETED":212}	public void countLines(ChangeLOCStructure changeLOCStructure) throws AnalyzerServiceException {
+{"VERSION":3,"ADDED":213}	/**
+{"VERSION":3,"DELETED":214}	if (changeLOCStructure == null || changeLOCStructure.getPackageFiles() == null) {
+{"VERSION":3,"ADDED":215}	*  This method evaluates a regex expression
+{"VERSION":3,"DELETED":216}	throw new AnalyzerServiceException("La estructura de lineas modificadas no puede ser nula");
+{"VERSION":3,"ADDED":217}	* @param regex to compare
+{"VERSION":3,"DELETED":218}	Collection<Map<String, LOCFile>> packageFiles = changeLOCStructure.getPackageFiles().values();
+{"VERSION":3,"ADDED":219}	*/
+{"VERSION":3,"DELETED":220}	int programLines = BigInteger.ZERO.intValue();
+{"VERSION":3,"ADDED":221}	private Boolean evaluateExpression( String line,String regex) {
+{"VERSION":3,"DELETED":222}	int totalAdded = BigInteger.ZERO.intValue();
+{"VERSION":3,"ADDED":223}	Pattern pattern = Pattern.compile(regex);
+{"VERSION":3,"DELETED":224}	int totalDeleted = BigInteger.ZERO.intValue();
+{"VERSION":3,"ADDED":225}	Matcher matcher = pattern.matcher(line);
+{"VERSION":3,"DELETED":226}	for (Map<String, LOCFile> locFilesPackage : packageFiles) {
+{"VERSION":3,"ADDED":227}	return matcher.matches();
+{"VERSION":3,"DELETED":228}	Collection<LOCFile> locFiles = locFilesPackage.values();
+{"VERSION":3,"ADDED":229}	/**
+{"VERSION":3,"DELETED":230}	for (LOCFile locFile : locFiles) {
+{"VERSION":3,"ADDED":231}	* This method searches the last version registered or starts a new version count if is the first time
+{"VERSION":3,"DELETED":232}	programLines += locFile.getTotal();
+{"VERSION":3,"ADDED":233}	*
+{"VERSION":3,"DELETED":234}	totalAdded += locFile.getTotalAdded();
+{"VERSION":3,"ADDED":235}	* @param Actual program LOCFile instance
+{"VERSION":3,"DELETED":236}	totalDeleted += locFile.getTotalDeleted();
+{"VERSION":3,"ADDED":237}	* @return the version of the program
+{"VERSION":3,"DELETED":238}	changeLOCStructure.setTotal(programLines);
+{"VERSION":3,"ADDED":239}	* @throws AnalyzerServiceException
+{"VERSION":3,"DELETED":240}	changeLOCStructure.setTotalAdded(totalAdded);
+{"VERSION":3,"ADDED":241}	*
+{"VERSION":3,"DELETED":242}	changeLOCStructure.setTotalDeleted(totalDeleted);
+{"VERSION":3,"ADDED":243}	*/
+{"VERSION":3,"DELETED":244}	/**
+{"VERSION":3,"ADDED":245}	private double searchVersion(LOCFile actualLOCFile) throws AnalyzerServiceException {
+{"VERSION":3,"DELETED":246}	* This method creates a new instance of LOCFile by identifying total class lines and which ones were added, deleted and kept
+{"VERSION":3,"ADDED":247}	List<LineCode> locsActualFile = actualLOCFile.getLocs();
+{"VERSION":3,"DELETED":248}	* @param Modified program LOCFile instance
+{"VERSION":3,"ADDED":249}	double version=2;
+{"VERSION":3,"DELETED":250}	* @param Actual program LOCFile instance
+{"VERSION":3,"ADDED":251}	try {
+{"VERSION":3,"DELETED":252}	* @return LOCFile instance that contains differences between modified and actual LOCFile
+{"VERSION":3,"ADDED":253}	for (int i = 0; i < locsActualFile.size(); i++) {
+{"VERSION":3,"DELETED":254}	* @throws AnalyzerServiceException
+{"VERSION":3,"ADDED":255}	if(locsActualFile.get(i)!=null){
+{"VERSION":3,"DELETED":256}	*/
+{"VERSION":3,"ADDED":257}	if (isVersionLine(locsActualFile.get(i).getLine())) {
+{"VERSION":3,"DELETED":258}	private LOCFile compareLOCFiles(LOCFile modifiedLOCFile, LOCFile actualLOCFile) throws AnalyzerServiceException {
+{"VERSION":3,"ADDED":259}	String vec[]=locsActualFile.get(i).getLine().split(" ");
+{"VERSION":3,"DELETED":260}	List<LineCode> locsModifiedFile = modifiedLOCFile.getLocs();
+{"VERSION":3,"ADDED":261}	version=(Double.parseDouble(vec[1]))+1;
+{"VERSION":3,"DELETED":262}	List<LineCode> locsActualFile = actualLOCFile.getLocs();
+{"VERSION":3,"ADDED":263}	return version;
+{"VERSION":3,"DELETED":264}	List<LineCode> locs = new ArrayList<LineCode>();
+{"VERSION":3,"ADDED":265}	} catch (Exception e) {
+{"VERSION":3,"DELETED":266}	int lineNumber = 0;
+{"VERSION":3,"ADDED":267}	throw new AnalyzerServiceException("Excepción al buscar la version" + actualLOCFile.getName(), e.getCause());
+{"VERSION":3,"DELETED":268}	int totalAdded = 0;
+{"VERSION":3,"ADDED":269}	return version;
+{"VERSION":3,"DELETED":270}	int totalDeleted = 0;
+{"VERSION":3,"ADDED":271}	/**
+{"VERSION":3,"DELETED":272}	try {
+{"VERSION":3,"ADDED":273}	* This is the method in charge of calculate total lines for the new program version and update the change structure
+{"VERSION":3,"DELETED":274}	/* Fills the smaller list with null values to avoid exception at iteration */
+{"VERSION":3,"ADDED":275}	* @param change structure with total lines including added
+{"VERSION":3,"DELETED":276}	if (locsActualFile.size() != locsModifiedFile.size()) {
+{"VERSION":3,"ADDED":277}	* and deleted lines in the new program version
+{"VERSION":3,"DELETED":278}	while (locsModifiedFile.size()>locsActualFile.size()) {
+{"VERSION":3,"ADDED":279}	* @throws AnalyzerServiceException
+{"VERSION":3,"DELETED":280}	locsActualFile.add(null);
+{"VERSION":3,"ADDED":281}	*/
+{"VERSION":3,"DELETED":282}	while (locsModifiedFile.size()<locsActualFile.size()) {
+{"VERSION":3,"ADDED":283}	public void countLines(ChangeLOCStructure changeLOCStructure) throws AnalyzerServiceException {
+{"VERSION":3,"DELETED":284}	locsModifiedFile.add(null);
+{"VERSION":3,"ADDED":285}	if (changeLOCStructure == null || changeLOCStructure.getPackageFiles() == null) {
+{"VERSION":3,"DELETED":286}	for (int i = 0; i < locsModifiedFile.size(); i++) {
+{"VERSION":3,"ADDED":287}	throw new AnalyzerServiceException("La estructura de lineas modificadas no puede ser nula");
+{"VERSION":3,"DELETED":288}	LineCode line = new LineCode();
+{"VERSION":3,"ADDED":289}	Collection<Map<String, LOCFile>> packageFiles = changeLOCStructure.getPackageFiles().values();
+{"VERSION":3,"DELETED":290}	if (locsModifiedFile.get(i)==null) {
+{"VERSION":3,"ADDED":291}	int programLines = BigInteger.ZERO.intValue();
+{"VERSION":3,"DELETED":292}	line = (LineCode) locsActualFile.get(i).clone();
+{"VERSION":3,"ADDED":293}	int totalAdded = BigInteger.ZERO.intValue();
+{"VERSION":3,"DELETED":294}	line.setLineNumber(lineNumber);
+{"VERSION":3,"ADDED":295}	int totalDeleted = BigInteger.ZERO.intValue();
+{"VERSION":3,"DELETED":296}	line.setChangeType(ChangeType.DELETED);
+{"VERSION":3,"ADDED":297}	for (Map<String, LOCFile> locFilesPackage : packageFiles) {
+{"VERSION":3,"DELETED":298}	locs.add(line);
+{"VERSION":3,"ADDED":299}	Collection<LOCFile> locFiles = locFilesPackage.values();
+{"VERSION":3,"DELETED":300}	lineNumber++;
+{"VERSION":3,"ADDED":301}	for (LOCFile locFile : locFiles) {
+{"VERSION":3,"DELETED":302}	totalDeleted++;
+{"VERSION":3,"ADDED":303}	programLines += locFile.getTotal();
+{"VERSION":3,"DELETED":304}	continue;
+{"VERSION":3,"ADDED":305}	totalAdded += locFile.getTotalAdded();
+{"VERSION":3,"DELETED":306}	if (locsActualFile.get(i)==null) {
+{"VERSION":3,"ADDED":307}	totalDeleted += locFile.getTotalDeleted();
+{"VERSION":3,"DELETED":308}	line = (LineCode) locsModifiedFile.get(i).clone();
+{"VERSION":3,"ADDED":309}	changeLOCStructure.setTotal(programLines);
+{"VERSION":3,"DELETED":310}	line.setLineNumber(lineNumber);
+{"VERSION":3,"ADDED":311}	changeLOCStructure.setTotalAdded(totalAdded);
+{"VERSION":3,"DELETED":312}	line.setChangeType(ChangeType.ADDED);
+{"VERSION":3,"ADDED":313}	changeLOCStructure.setTotalDeleted(totalDeleted);
+{"VERSION":3,"DELETED":314}	locs.add(line);
+{"VERSION":3,"ADDED":315}	/**
+{"VERSION":3,"DELETED":316}	lineNumber++;
+{"VERSION":3,"ADDED":317}	* This method creates a new instance of LOCFile by identifying total class lines and which ones were added, deleted and kept
+{"VERSION":3,"DELETED":318}	totalAdded++;
+{"VERSION":3,"ADDED":319}	* @param Modified program LOCFile instance
+{"VERSION":3,"DELETED":320}	continue;
+{"VERSION":3,"ADDED":321}	* @param Actual program LOCFile instance
+{"VERSION":3,"DELETED":322}	line = (LineCode) locsModifiedFile.get(i).clone();
+{"VERSION":3,"ADDED":323}	* @return LOCFile instance that contains differences between modified and actual LOCFile
+{"VERSION":3,"DELETED":324}	line.setLineNumber(lineNumber);
+{"VERSION":3,"ADDED":325}	* @throws AnalyzerServiceException
+{"VERSION":3,"DELETED":326}	if (locsModifiedFile.get(i).getLine().equals(locsActualFile.get(i).getLine())) {
+{"VERSION":3,"ADDED":327}	*/
+{"VERSION":3,"DELETED":328}	line.setChangeType(ChangeType.KEPT);
+{"VERSION":3,"ADDED":329}	private LOCFile compareLOCFiles(LOCFile modifiedLOCFile, LOCFile actualLOCFile) throws AnalyzerServiceException {
+{"VERSION":3,"DELETED":330}	locs.add(line);
+{"VERSION":3,"ADDED":331}	List<LineCode> locsModifiedFile = modifiedLOCFile.getLocs();
+{"VERSION":3,"DELETED":332}	lineNumber++;
+{"VERSION":3,"ADDED":333}	List<LineCode> locsActualFile = actualLOCFile.getLocs();
+{"VERSION":3,"DELETED":334}	} else if (!locsModifiedFile.get(i).getLine().equals(locsActualFile.get(i).getLine())) {
+{"VERSION":3,"ADDED":335}	List<LineCode> locs = new ArrayList<LineCode>();
+{"VERSION":3,"DELETED":336}	/* Modified file line is marked as ADDED */
+{"VERSION":3,"ADDED":337}	int lineNumber = 0;
+{"VERSION":3,"DELETED":338}	line.setChangeType(ChangeType.ADDED);
+{"VERSION":3,"ADDED":339}	int totalAdded = 0;
+{"VERSION":3,"DELETED":340}	locs.add(line);
+{"VERSION":3,"ADDED":341}	int totalDeleted = 0;
+{"VERSION":3,"DELETED":342}	lineNumber++;
+{"VERSION":3,"ADDED":343}	try {
+{"VERSION":3,"DELETED":344}	totalAdded++;
+{"VERSION":3,"ADDED":345}	/* Fills the smaller list with null values to avoid exception at iteration */
+{"VERSION":3,"DELETED":346}	/* Actual file line is added to modified file lines and marked DELETED */
+{"VERSION":3,"ADDED":347}	if (locsActualFile.size() != locsModifiedFile.size()) {
+{"VERSION":3,"DELETED":348}	LineCode deletedLine = (LineCode) locsActualFile.get(i).clone();
+{"VERSION":3,"ADDED":349}	while (locsModifiedFile.size()>locsActualFile.size()) {
+{"VERSION":3,"DELETED":350}	deletedLine.setLineNumber(lineNumber);
+{"VERSION":3,"ADDED":351}	locsActualFile.add(null);
+{"VERSION":3,"DELETED":352}	deletedLine.setChangeType(ChangeType.DELETED);
+{"VERSION":3,"ADDED":353}	while (locsModifiedFile.size()<locsActualFile.size()) {
+{"VERSION":3,"DELETED":354}	locs.add(deletedLine);
+{"VERSION":3,"ADDED":355}	locsModifiedFile.add(null);
+{"VERSION":3,"DELETED":356}	lineNumber++;
+{"VERSION":3,"ADDED":357}	for (int i = 0; i < locsModifiedFile.size(); i++) {
+{"VERSION":3,"DELETED":358}	totalDeleted++;
+{"VERSION":3,"ADDED":359}	LineCode line = new LineCode();
+{"VERSION":3,"DELETED":360}	} catch (Exception e) {
+{"VERSION":3,"ADDED":361}	if (locsActualFile.get(i)!=null) {
+{"VERSION":3,"DELETED":362}	throw new AnalyzerServiceException("Excepción al comparar la líneas de la clase" + modifiedLOCFile.getName(), e.getCause());
+{"VERSION":3,"ADDED":363}	if (locsActualFile.get(i).isMain()){
+{"VERSION":3,"DELETED":364}	LOCFile locFile = new LOCFile();
+{"VERSION":3,"ADDED":365}	actualLOCFile.setMain(true);
+{"VERSION":3,"DELETED":366}	locFile.setLocs(locs);
+{"VERSION":3,"ADDED":367}	if (locsModifiedFile.get(i)==null) {
+{"VERSION":3,"DELETED":368}	locFile.setName(modifiedLOCFile.getName());
+{"VERSION":3,"ADDED":369}	line = (LineCode) locsActualFile.get(i).clone();
+{"VERSION":3,"DELETED":370}	locFile.setTotal(locs.size());
+{"VERSION":3,"ADDED":371}	line.setLineNumber(lineNumber);
+{"VERSION":3,"DELETED":372}	locFile.setTotalAdded(totalAdded);
+{"VERSION":3,"ADDED":373}	line.setChangeType(ChangeType.DELETED);
+{"VERSION":3,"DELETED":374}	locFile.setTotalDeleted(totalDeleted);
+{"VERSION":3,"ADDED":375}	locs.add(line);
+{"VERSION":3,"DELETED":376}	return locFile;
+{"VERSION":3,"ADDED":377}	lineNumber++;
+{"VERSION":3,"DELETED":378}	/**
+{"VERSION":3,"ADDED":379}	totalDeleted++;
+{"VERSION":3,"DELETED":380}	* This method is responsible for updating LOCFile instance to mark all lines as added
+{"VERSION":3,"ADDED":381}	continue;
+{"VERSION":3,"DELETED":382}	* @param New LOCFile
+{"VERSION":3,"ADDED":383}	if (locsActualFile.get(i)==null) {
+{"VERSION":3,"DELETED":384}	*/
+{"VERSION":3,"ADDED":385}	line = (LineCode) locsModifiedFile.get(i).clone();
+{"VERSION":3,"DELETED":386}	private void addNewLOCFile(LOCFile locFile) {
+{"VERSION":3,"ADDED":387}	line.setLineNumber(lineNumber);
+{"VERSION":3,"DELETED":388}	List<LineCode> codeLines = locFile.getLocs();
+{"VERSION":3,"ADDED":389}	line.setChangeType(ChangeType.ADDED);
+{"VERSION":3,"DELETED":390}	for (LineCode lineCode : codeLines) {
+{"VERSION":3,"ADDED":391}	locs.add(line);
+{"VERSION":3,"DELETED":392}	lineCode.setChangeType(ChangeType.ADDED);
+{"VERSION":3,"ADDED":393}	lineNumber++;
+{"VERSION":3,"DELETED":394}	locFile.setTotalAdded(codeLines.size());
+{"VERSION":3,"ADDED":395}	totalAdded++;
+{"VERSION":3,"DELETED":396}	locFile.setTotal(codeLines.size());
+{"VERSION":3,"ADDED":397}	continue;
+{"VERSION":3,"DELETED":398}	locFile.setTotalDeleted(BigInteger.ZERO.intValue());
+{"VERSION":3,"ADDED":399}	line = (LineCode) locsModifiedFile.get(i).clone();
+{"VERSION":3,"DELETED":400}	/**
+{"VERSION":3,"ADDED":401}	line.setLineNumber(lineNumber);
+{"VERSION":3,"DELETED":402}	* This method is responsible for updating LOCFile instance to mark all lines as deleted
+{"VERSION":3,"ADDED":403}	if (locsModifiedFile.get(i).getLine().equals(locsActualFile.get(i).getLine())) {
+{"VERSION":3,"DELETED":404}	* @param Deleted LOCFile
+{"VERSION":3,"ADDED":405}	line.setChangeType(ChangeType.KEPT);
+{"VERSION":3,"DELETED":406}	*/
+{"VERSION":3,"ADDED":407}	locs.add(line);
+{"VERSION":3,"DELETED":408}	private void addDeletedLOCFile(LOCFile locFile) {
+{"VERSION":3,"ADDED":409}	lineNumber++;
+{"VERSION":3,"DELETED":410}	List<LineCode> codeLines = locFile.getLocs();
+{"VERSION":3,"ADDED":411}	} else if (!locsModifiedFile.get(i).getLine().equals(locsActualFile.get(i).getLine())) {
+{"VERSION":3,"DELETED":412}	for (LineCode lineCode : codeLines) {
+{"VERSION":3,"ADDED":413}	/* Modified file line is marked as ADDED */
+{"VERSION":3,"DELETED":414}	lineCode.setChangeType(ChangeType.DELETED);
+{"VERSION":3,"ADDED":415}	line.setChangeType(ChangeType.ADDED);
+{"VERSION":3,"DELETED":416}	locFile.setTotalAdded(BigInteger.ZERO.intValue());
+{"VERSION":3,"ADDED":417}	locs.add(line);
+{"VERSION":3,"DELETED":418}	locFile.setTotal(codeLines.size());
+{"VERSION":3,"ADDED":419}	lineNumber++;
+{"VERSION":3,"DELETED":420}	locFile.setTotalDeleted(codeLines.size());
+{"VERSION":3,"ADDED":421}	totalAdded++;
+{"VERSION":3,"ADDED":422}	/* Actual file line is added to modified file lines and marked DELETED */
+{"VERSION":3,"ADDED":423}	LineCode deletedLine = (LineCode) locsActualFile.get(i).clone();
+{"VERSION":3,"ADDED":424}	deletedLine.setLineNumber(lineNumber);
+{"VERSION":3,"ADDED":425}	deletedLine.setChangeType(ChangeType.DELETED);
+{"VERSION":3,"ADDED":426}	locs.add(deletedLine);
+{"VERSION":3,"ADDED":427}	lineNumber++;
+{"VERSION":3,"ADDED":428}	totalDeleted++;
+{"VERSION":3,"ADDED":429}	} catch (Exception e) {
+{"VERSION":3,"ADDED":430}	throw new AnalyzerServiceException("Excepción al comparar la líneas de la clase" + modifiedLOCFile.getName(), e.getCause());
+{"VERSION":3,"ADDED":431}	LOCFile locFile = new LOCFile();
+{"VERSION":3,"ADDED":432}	locFile.setLocs(locs);
+{"VERSION":3,"ADDED":433}	locFile.setName(modifiedLOCFile.getName());
+{"VERSION":3,"ADDED":434}	locFile.setMain(modifiedLOCFile.isMain());
+{"VERSION":3,"ADDED":435}	locFile.setTotal(locs.size());
+{"VERSION":3,"ADDED":436}	locFile.setTotalAdded(totalAdded);
+{"VERSION":3,"ADDED":437}	locFile.setTotalDeleted(totalDeleted);
+{"VERSION":3,"ADDED":438}	return locFile;
+{"VERSION":3,"ADDED":439}	/**
+{"VERSION":3,"ADDED":440}	* This method is responsible for updating LOCFile instance to mark all lines as added
+{"VERSION":3,"ADDED":441}	* @param New LOCFile
+{"VERSION":3,"ADDED":442}	*/
+{"VERSION":3,"ADDED":443}	private void addNewLOCFile(LOCFile locFile) {
+{"VERSION":3,"ADDED":444}	List<LineCode> codeLines = locFile.getLocs();
+{"VERSION":3,"ADDED":445}	for (LineCode lineCode : codeLines) {
+{"VERSION":3,"ADDED":446}	lineCode.setChangeType(ChangeType.ADDED);
+{"VERSION":3,"ADDED":447}	locFile.setTotalAdded(codeLines.size());
+{"VERSION":3,"ADDED":448}	locFile.setTotal(codeLines.size());
+{"VERSION":3,"ADDED":449}	locFile.setTotalDeleted(BigInteger.ZERO.intValue());
+{"VERSION":3,"ADDED":450}	/**
+{"VERSION":3,"ADDED":451}	* This method is responsible for updating LOCFile instance to mark all lines as deleted
+{"VERSION":3,"ADDED":452}	* @param Deleted LOCFile
+{"VERSION":3,"ADDED":453}	*/
+{"VERSION":3,"ADDED":454}	private void addDeletedLOCFile(LOCFile locFile) {
+{"VERSION":3,"ADDED":455}	List<LineCode> codeLines = locFile.getLocs();
+{"VERSION":3,"ADDED":456}	for (LineCode lineCode : codeLines) {
+{"VERSION":3,"ADDED":457}	lineCode.setChangeType(ChangeType.DELETED);
+{"VERSION":3,"ADDED":458}	locFile.setTotalAdded(BigInteger.ZERO.intValue());
+{"VERSION":3,"ADDED":459}	locFile.setTotal(codeLines.size());
+{"VERSION":3,"ADDED":460}	locFile.setTotalDeleted(codeLines.size());

@@ -1,0 +1,407 @@
+{"VERSION":2,"KEPT":0}	package com.uniandes.gaudi.change.counter.java.file;
+{"VERSION":2,"KEPT":1}	import java.io.BufferedReader;
+{"VERSION":2,"KEPT":2}	import java.io.Closeable;
+{"VERSION":2,"KEPT":3}	import java.io.File;
+{"VERSION":2,"KEPT":4}	import java.io.FileNotFoundException;
+{"VERSION":2,"KEPT":5}	import java.io.FileReader;
+{"VERSION":2,"KEPT":6}	import java.io.IOException;
+{"VERSION":2,"KEPT":7}	import java.util.ArrayList;
+{"VERSION":2,"KEPT":8}	import java.util.List;
+{"VERSION":2,"KEPT":9}	import java.util.regex.Matcher;
+{"VERSION":2,"KEPT":10}	import java.util.regex.Pattern;
+{"VERSION":2,"KEPT":11}	import com.uniandes.gaudi.change.counter.entity.BlockLOC;
+{"VERSION":2,"KEPT":12}	import com.uniandes.gaudi.change.counter.entity.LOCFile;
+{"VERSION":2,"KEPT":13}	import com.uniandes.gaudi.change.counter.entity.LineCode;
+{"VERSION":2,"KEPT":14}	import com.uniandes.gaudi.change.counter.entity.LineType;
+{"VERSION":2,"KEPT":15}	import com.uniandes.gaudi.change.counter.file.exception.FileServiceException;
+{"VERSION":2,"KEPT":16}	import com.uniandes.gaudi.change.counter.file.service.LOCFileParser;
+{"VERSION":2,"KEPT":17}	import com.uniandes.gaudi.change.counter.util.file.FileUtil;
+{"VERSION":2,"KEPT":18}	/**
+{"VERSION":2,"KEPT":19}	* This class implements the logic to parse a java source file
+{"VERSION":2,"KEPT":20}	*
+{"VERSION":2,"KEPT":21}	* @class JavaLOCFileParser.java
+{"VERSION":2,"KEPT":22}	* @author Felipe
+{"VERSION":2,"KEPT":23}	* @Date 7/04/2013
+{"VERSION":2,"KEPT":24}	* @since 1.0
+{"VERSION":2,"KEPT":25}	*/
+{"VERSION":2,"KEPT":26}	public class JavaLOCFileParser implements LOCFileParser {
+{"VERSION":2,"KEPT":27}	/**
+{"VERSION":2,"KEPT":28}	* Method to parse a file in a given language into a LOCFile
+{"VERSION":2,"KEPT":29}	*
+{"VERSION":2,"KEPT":30}	* @param file path for the source file
+{"VERSION":2,"KEPT":31}	* @return LOCFile with the info
+{"VERSION":2,"KEPT":32}	*/
+{"VERSION":2,"KEPT":33}	@Override
+{"VERSION":2,"KEPT":34}	public LOCFile parseFile(File file) throws FileServiceException {
+{"VERSION":2,"KEPT":35}	LOCFile locFile = new LOCFile();
+{"VERSION":3,"ADDED":36}	locFile.setPath(file.getAbsolutePath());
+{"VERSION":3,"DELETED":37}	parseFile(file, locFile);
+{"VERSION":3,"ADDED":38}	parseFile(file, locFile);
+{"VERSION":3,"DELETED":39}	return locFile;
+{"VERSION":3,"ADDED":40}	return locFile;
+{"VERSION":3,"DELETED":41}	/**
+{"VERSION":3,"ADDED":42}	/**
+{"VERSION":3,"DELETED":43}	* This method parses a java file and fills the loc file object
+{"VERSION":3,"ADDED":44}	* This method parses a java file and fills the loc file object
+{"VERSION":3,"DELETED":45}	*
+{"VERSION":3,"ADDED":46}	*
+{"VERSION":3,"DELETED":47}	* @param file to be parsed
+{"VERSION":3,"ADDED":48}	* @param file to be parsed
+{"VERSION":3,"DELETED":49}	* @param locFile object with the data
+{"VERSION":3,"ADDED":50}	* @param locFile object with the data
+{"VERSION":3,"DELETED":51}	*/
+{"VERSION":3,"ADDED":52}	*/
+{"VERSION":3,"DELETED":53}	private void parseFile(File file, LOCFile locFile) throws FileServiceException {
+{"VERSION":3,"ADDED":54}	private void parseFile(File file, LOCFile locFile) throws FileServiceException {
+{"VERSION":3,"DELETED":55}	FileReader fileReader = null;
+{"VERSION":3,"ADDED":56}	FileReader fileReader = null;
+{"VERSION":3,"DELETED":57}	BufferedReader bufferedReader = null;
+{"VERSION":3,"ADDED":58}	BufferedReader bufferedReader = null;
+{"VERSION":3,"DELETED":59}	List<LineCode> locs = new ArrayList<LineCode>();
+{"VERSION":3,"ADDED":60}	List<LineCode> locs = new ArrayList<LineCode>();
+{"VERSION":3,"DELETED":61}	locFile.setLocs(locs);
+{"VERSION":3,"ADDED":62}	locFile.setLocs(locs);
+{"VERSION":3,"DELETED":63}	try {
+{"VERSION":3,"ADDED":64}	try {
+{"VERSION":3,"DELETED":65}	String fileName = FileUtil.getInstance().getFileName(file);
+{"VERSION":3,"ADDED":66}	String fileName = FileUtil.getInstance().getFileName(file);
+{"VERSION":3,"DELETED":67}	locFile.setName(fileName);
+{"VERSION":3,"ADDED":68}	locFile.setName(fileName);
+{"VERSION":3,"DELETED":69}	fileReader = new FileReader(file);
+{"VERSION":3,"ADDED":70}	fileReader = new FileReader(file);
+{"VERSION":3,"DELETED":71}	bufferedReader = new BufferedReader(fileReader);
+{"VERSION":3,"ADDED":72}	bufferedReader = new BufferedReader(fileReader);
+{"VERSION":3,"DELETED":73}	String line = bufferedReader.readLine();
+{"VERSION":3,"ADDED":74}	String line = bufferedReader.readLine();
+{"VERSION":3,"DELETED":75}	int lineNumber = 1;
+{"VERSION":3,"ADDED":76}	int lineNumber = 1;
+{"VERSION":3,"DELETED":77}	while (line != null) {
+{"VERSION":3,"ADDED":78}	while (line != null) {
+{"VERSION":3,"DELETED":79}	line = line.trim();
+{"VERSION":3,"ADDED":80}	line = line.trim();
+{"VERSION":3,"DELETED":81}	if (isValidLine(line)) {
+{"VERSION":3,"ADDED":82}	if (isValidLine(line)) {
+{"VERSION":3,"DELETED":83}	Boolean isConstructor = isConstructor(line, locFile.getName());
+{"VERSION":3,"ADDED":84}	Boolean isConstructor = isConstructor(line, locFile.getName());
+{"VERSION":3,"DELETED":85}	Boolean isMethod = isMethod(line);
+{"VERSION":3,"ADDED":86}	Boolean isMethod = isMethod(line);
+{"VERSION":3,"DELETED":87}	Boolean isClass = isClass(line);
+{"VERSION":3,"ADDED":88}	Boolean isClass = isClass(line);
+{"VERSION":3,"DELETED":89}	LineType lineType = getLineType(isMethod, isConstructor, isClass);
+{"VERSION":3,"ADDED":90}	LineType lineType = getLineType(isMethod, isConstructor, isClass);
+{"VERSION":3,"DELETED":91}	if (isMethod || isConstructor || isClass) {
+{"VERSION":3,"ADDED":92}	if (isMethod || isConstructor || isClass) {
+{"VERSION":3,"DELETED":93}	LineCode loc = new LineCode();
+{"VERSION":3,"ADDED":94}	LineCode loc = new LineCode();
+{"VERSION":3,"DELETED":95}	fillLOC(loc, line, lineNumber, lineType);
+{"VERSION":3,"ADDED":96}	fillLOC(loc, line, lineNumber, lineType);
+{"VERSION":3,"DELETED":97}	locs.add(loc);
+{"VERSION":3,"ADDED":98}	locs.add(loc);
+{"VERSION":3,"DELETED":99}	} else if (isComment(line)) {
+{"VERSION":3,"ADDED":100}	} else if (isComment(line)) {
+{"VERSION":3,"DELETED":101}	LineCode loc = new LineCode();
+{"VERSION":3,"ADDED":102}	LineCode loc = new LineCode();
+{"VERSION":3,"DELETED":103}	fillLOC(loc, line, lineNumber, LineType.COMMENT);
+{"VERSION":3,"ADDED":104}	fillLOC(loc, line, lineNumber, LineType.COMMENT);
+{"VERSION":3,"DELETED":105}	locs.add(loc);
+{"VERSION":3,"ADDED":106}	locs.add(loc);
+{"VERSION":3,"DELETED":107}	else {
+{"VERSION":3,"ADDED":108}	else {
+{"VERSION":3,"DELETED":109}	LineCode loc = new LineCode();
+{"VERSION":3,"ADDED":110}	LineCode loc = new LineCode();
+{"VERSION":3,"DELETED":111}	fillLOC(loc, line, lineNumber, LineType.REGULAR_LINE);
+{"VERSION":3,"ADDED":112}	fillLOC(loc, line, lineNumber, LineType.REGULAR_LINE);
+{"VERSION":3,"DELETED":113}	locs.add(loc);
+{"VERSION":3,"ADDED":114}	locs.add(loc);
+{"VERSION":3,"DELETED":115}	lineNumber++;
+{"VERSION":3,"ADDED":116}	lineNumber++;
+{"VERSION":3,"DELETED":117}	line = bufferedReader.readLine();
+{"VERSION":3,"ADDED":118}	line = bufferedReader.readLine();
+{"VERSION":3,"DELETED":119}	} catch (FileNotFoundException e) {
+{"VERSION":3,"ADDED":120}	} catch (FileNotFoundException e) {
+{"VERSION":3,"DELETED":121}	throw new FileServiceException(e.getMessage(), e);
+{"VERSION":3,"ADDED":122}	throw new FileServiceException(e.getMessage(), e);
+{"VERSION":3,"DELETED":123}	} catch (IOException e) {
+{"VERSION":3,"ADDED":124}	} catch (IOException e) {
+{"VERSION":3,"DELETED":125}	throw new FileServiceException(e.getMessage(), e);
+{"VERSION":3,"ADDED":126}	throw new FileServiceException(e.getMessage(), e);
+{"VERSION":3,"DELETED":127}	} finally {
+{"VERSION":3,"ADDED":128}	} finally {
+{"VERSION":3,"DELETED":129}	closeStreams(bufferedReader, fileReader);
+{"VERSION":3,"ADDED":130}	closeStreams(bufferedReader, fileReader);
+{"VERSION":3,"DELETED":131}	/**
+{"VERSION":3,"ADDED":132}	/**
+{"VERSION":3,"DELETED":133}	* returns the line type for the current line
+{"VERSION":3,"ADDED":134}	* returns the line type for the current line
+{"VERSION":3,"DELETED":135}	*
+{"VERSION":3,"ADDED":136}	*
+{"VERSION":3,"DELETED":137}	* @param isMethod
+{"VERSION":3,"ADDED":138}	* @param isMethod
+{"VERSION":3,"DELETED":139}	* @param isConstructor
+{"VERSION":3,"ADDED":140}	* @param isConstructor
+{"VERSION":3,"DELETED":141}	* @param isClass
+{"VERSION":3,"ADDED":142}	* @param isClass
+{"VERSION":3,"DELETED":143}	* @return the line type for the actual line
+{"VERSION":3,"ADDED":144}	* @return the line type for the actual line
+{"VERSION":3,"DELETED":145}	*/
+{"VERSION":3,"ADDED":146}	*/
+{"VERSION":3,"DELETED":147}	private LineType getLineType(Boolean isMethod, Boolean isConstructor, Boolean isClass) {
+{"VERSION":3,"ADDED":148}	private LineType getLineType(Boolean isMethod, Boolean isConstructor, Boolean isClass) {
+{"VERSION":3,"DELETED":149}	if (isClass) {
+{"VERSION":3,"ADDED":150}	if (isClass) {
+{"VERSION":3,"DELETED":151}	return LineType.CLASS;
+{"VERSION":3,"ADDED":152}	return LineType.CLASS;
+{"VERSION":3,"DELETED":153}	if (isConstructor) {
+{"VERSION":3,"ADDED":154}	if (isConstructor) {
+{"VERSION":3,"DELETED":155}	return LineType.METHOD;
+{"VERSION":3,"ADDED":156}	return LineType.METHOD;
+{"VERSION":3,"DELETED":157}	if (isMethod) {
+{"VERSION":3,"ADDED":158}	if (isMethod) {
+{"VERSION":3,"DELETED":159}	return LineType.METHOD;
+{"VERSION":3,"ADDED":160}	return LineType.METHOD;
+{"VERSION":3,"DELETED":161}	return LineType.REGULAR_LINE;
+{"VERSION":3,"ADDED":162}	return LineType.REGULAR_LINE;
+{"VERSION":3,"DELETED":163}	/**
+{"VERSION":3,"ADDED":164}	/**
+{"VERSION":3,"DELETED":165}	* returns true if the line does not end with }, // or if the line is empty
+{"VERSION":3,"ADDED":166}	* returns true if the line does not end with }, // or if the line is empty
+{"VERSION":3,"DELETED":167}	*
+{"VERSION":3,"ADDED":168}	*
+{"VERSION":3,"DELETED":169}	* @param line to be evaluated
+{"VERSION":3,"ADDED":170}	* @param line to be evaluated
+{"VERSION":3,"DELETED":171}	*
+{"VERSION":3,"ADDED":172}	*
+{"VERSION":3,"DELETED":173}	* @return true if the line is valid, false otherwise
+{"VERSION":3,"ADDED":174}	* @return true if the line is valid, false otherwise
+{"VERSION":3,"DELETED":175}	*/
+{"VERSION":3,"ADDED":176}	*/
+{"VERSION":3,"DELETED":177}	private Boolean isValidLine(String line) {
+{"VERSION":3,"ADDED":178}	private Boolean isValidLine(String line) {
+{"VERSION":3,"DELETED":179}	if (line.isEmpty() || line.equals("}") || line.startsWith("//")) {
+{"VERSION":3,"ADDED":180}	if (line.isEmpty() || line.equals("}") || line.startsWith("//")) {
+{"VERSION":3,"DELETED":181}	return false;
+{"VERSION":3,"ADDED":182}	return false;
+{"VERSION":3,"DELETED":183}	return true;
+{"VERSION":3,"ADDED":184}	return true;
+{"VERSION":3,"DELETED":185}	/**
+{"VERSION":3,"ADDED":186}	/**
+{"VERSION":3,"DELETED":187}	* returns true if the line represents a java class using the regular expression
+{"VERSION":3,"ADDED":188}	* returns true if the line represents a java class using the regular expression
+{"VERSION":3,"DELETED":189}	* (public|protected|private)? +((\\w)+ +)*(class|interface|enum) +(\\w+)( *.*)*\\{
+{"VERSION":3,"ADDED":190}	* (public|protected|private)? +((\\w)+ +)*(class|interface|enum) +(\\w+)( *.*)*\\{
+{"VERSION":3,"DELETED":191}	*
+{"VERSION":3,"ADDED":192}	*
+{"VERSION":3,"DELETED":193}	* @param line
+{"VERSION":3,"ADDED":194}	* @param line
+{"VERSION":3,"DELETED":195}	* @return true if the lines is a class, false otherwise
+{"VERSION":3,"ADDED":196}	* @return true if the lines is a class, false otherwise
+{"VERSION":3,"DELETED":197}	*/
+{"VERSION":3,"ADDED":198}	*/
+{"VERSION":3,"DELETED":199}	private Boolean isClass(String line) {
+{"VERSION":3,"ADDED":200}	private Boolean isClass(String line) {
+{"VERSION":3,"DELETED":201}	String regex = "(public|protected|private)? +((\\w)+ +)*(class|interface|enum) +(\\w+)( *.*)*\\{";
+{"VERSION":3,"ADDED":202}	String regex = "(public|protected|private)? +((\\w)+ +)*(class|interface|enum) +(\\w+)( *.*)*\\{";
+{"VERSION":3,"DELETED":203}	return evaluateExpression(line, regex);
+{"VERSION":3,"ADDED":204}	return evaluateExpression(line, regex);
+{"VERSION":3,"DELETED":205}	/**
+{"VERSION":3,"ADDED":206}	/**
+{"VERSION":3,"DELETED":207}	* returns true if the line represents a java method using the regular expression
+{"VERSION":3,"ADDED":208}	* returns true if the line represents a java method using the regular expression
+{"VERSION":3,"DELETED":209}	* (public|protected|private)? +(\\w+ +)*(.*) +\\w+ *\\(.*\\) *(throws \\w+ *)?\\{
+{"VERSION":3,"ADDED":210}	* (public|protected|private)? +(\\w+ +)*(.*) +\\w+ *\\(.*\\) *(throws \\w+ *)?\\{
+{"VERSION":3,"DELETED":211}	*
+{"VERSION":3,"ADDED":212}	*
+{"VERSION":3,"DELETED":213}	* @param line to be evaluated
+{"VERSION":3,"ADDED":214}	* @param line to be evaluated
+{"VERSION":3,"DELETED":215}	* @return true if the lines a method, false otherwise
+{"VERSION":3,"ADDED":216}	* @return true if the lines a method, false otherwise
+{"VERSION":3,"DELETED":217}	*/
+{"VERSION":3,"ADDED":218}	*/
+{"VERSION":3,"DELETED":219}	private Boolean isMethod(String line) {
+{"VERSION":3,"ADDED":220}	private Boolean isMethod(String line) {
+{"VERSION":3,"DELETED":221}	String regex = "(public|protected|private)? +(\\w+ +)*(.*) +\\w+ *\\(.*\\) *(throws \\w+ *)?\\{";
+{"VERSION":3,"ADDED":222}	String regex = "(public|protected|private)? +(\\w+ +)*(.*) +\\w+ *\\(.*\\) *(throws \\w+ *)?\\{";
+{"VERSION":3,"DELETED":223}	return evaluateExpression(line, regex);
+{"VERSION":3,"ADDED":224}	return evaluateExpression(line, regex);
+{"VERSION":3,"DELETED":225}	/**
+{"VERSION":3,"ADDED":226}	/**
+{"VERSION":3,"DELETED":227}	* returns true if the line represents a java method using the regular expression
+{"VERSION":3,"ADDED":228}	* returns true if the line represents a java method using the regular expression
+{"VERSION":3,"DELETED":229}	* (public|protected|private)? +%s *\\(.*\\) *(throws +\\w+ *)?\\{ where %s should be
+{"VERSION":3,"ADDED":230}	* (public|protected|private)? +%s *\\(.*\\) *(throws +\\w+ *)?\\{ where %s should be
+{"VERSION":3,"DELETED":231}	* replaced with the class name
+{"VERSION":3,"ADDED":232}	* replaced with the class name
+{"VERSION":3,"DELETED":233}	*
+{"VERSION":3,"ADDED":234}	*
+{"VERSION":3,"DELETED":235}	* @param line to be evaluated
+{"VERSION":3,"ADDED":236}	* @param line to be evaluated
+{"VERSION":3,"DELETED":237}	* @param className name for this class
+{"VERSION":3,"ADDED":238}	* @param className name for this class
+{"VERSION":3,"DELETED":239}	* @return true if the line is a constructor, false otherwise
+{"VERSION":3,"ADDED":240}	* @return true if the line is a constructor, false otherwise
+{"VERSION":3,"DELETED":241}	*/
+{"VERSION":3,"ADDED":242}	*/
+{"VERSION":3,"DELETED":243}	private Boolean isConstructor(String line, String className) {
+{"VERSION":3,"ADDED":244}	private Boolean isConstructor(String line, String className) {
+{"VERSION":3,"DELETED":245}	String expression = String.format("(public|protected|private)? +%s *\\(.*\\) *(throws +\\w+ *)?\\{",className);
+{"VERSION":3,"ADDED":246}	String expression = String.format("(public|protected|private)? +%s *\\(.*\\) *(throws +\\w+ *)?\\{",className);
+{"VERSION":3,"DELETED":247}	return evaluateExpression(line, expression);
+{"VERSION":3,"ADDED":248}	return evaluateExpression(line, expression);
+{"VERSION":3,"DELETED":249}	/**
+{"VERSION":3,"ADDED":250}	/**
+{"VERSION":3,"DELETED":251}	* This method evaluates a regex expression
+{"VERSION":3,"ADDED":252}	* This method evaluates a regex expression
+{"VERSION":3,"DELETED":253}	*
+{"VERSION":3,"ADDED":254}	*
+{"VERSION":3,"DELETED":255}	* @param line evaluate
+{"VERSION":3,"ADDED":256}	* @param line evaluate
+{"VERSION":3,"DELETED":257}	* @param regex to compare
+{"VERSION":3,"ADDED":258}	* @param regex to compare
+{"VERSION":3,"DELETED":259}	* @return true if the line matches the regex
+{"VERSION":3,"ADDED":260}	* @return true if the line matches the regex
+{"VERSION":3,"DELETED":261}	*/
+{"VERSION":3,"ADDED":262}	*/
+{"VERSION":3,"DELETED":263}	private Boolean evaluateExpression(String line, String regex) {
+{"VERSION":3,"ADDED":264}	private Boolean evaluateExpression(String line, String regex) {
+{"VERSION":3,"DELETED":265}	Pattern pattern = Pattern.compile(regex);
+{"VERSION":3,"ADDED":266}	Pattern pattern = Pattern.compile(regex);
+{"VERSION":3,"DELETED":267}	Matcher matcher = pattern.matcher(line);
+{"VERSION":3,"ADDED":268}	Matcher matcher = pattern.matcher(line);
+{"VERSION":3,"DELETED":269}	return matcher.matches();
+{"VERSION":3,"ADDED":270}	return matcher.matches();
+{"VERSION":3,"DELETED":271}	/**
+{"VERSION":3,"ADDED":272}	/**
+{"VERSION":3,"DELETED":273}	* returns true if the line represents a java doc comment, if the line starts with
+{"VERSION":3,"ADDED":274}	* returns true if the line represents a java doc comment, if the line starts with
+{"VERSION":3,"DELETED":275}	* /**, * or * /
+{"VERSION":3,"ADDED":276}	* /**, * or * /
+{"VERSION":3,"DELETED":277}	*
+{"VERSION":3,"ADDED":278}	*
+{"VERSION":3,"DELETED":279}	* @param line
+{"VERSION":3,"ADDED":280}	* @param line
+{"VERSION":3,"DELETED":281}	* @return
+{"VERSION":3,"ADDED":282}	* @return
+{"VERSION":3,"DELETED":283}	*/
+{"VERSION":3,"ADDED":284}	*/
+{"VERSION":3,"DELETED":285}	private Boolean isComment(String line) {
+{"VERSION":3,"ADDED":286}	private Boolean isComment(String line) {
+{"VERSION":3,"DELETED":287}	if (line.startsWith("/**") || line.startsWith("*") || line.endsWith("*/")) {
+{"VERSION":3,"ADDED":288}	if (line.startsWith("/**") || line.startsWith("*") || line.endsWith("*/")) {
+{"VERSION":3,"DELETED":289}	return Boolean.TRUE;
+{"VERSION":3,"ADDED":290}	return Boolean.TRUE;
+{"VERSION":3,"DELETED":291}	return Boolean.FALSE;
+{"VERSION":3,"ADDED":292}	return Boolean.FALSE;
+{"VERSION":3,"DELETED":293}	/**
+{"VERSION":3,"ADDED":294}	/**
+{"VERSION":3,"DELETED":295}	* This method fills the the lines of code block of code like method constructor, or
+{"VERSION":3,"ADDED":296}	* This method fills the the lines of code block of code like method constructor, or
+{"VERSION":3,"DELETED":297}	* any other structure, to do this, the method searches the clossing } for the initial {
+{"VERSION":3,"ADDED":298}	* any other structure, to do this, the method searches the clossing } for the initial {
+{"VERSION":3,"DELETED":299}	* where the block is declared
+{"VERSION":3,"ADDED":300}	* where the block is declared
+{"VERSION":3,"DELETED":301}	*
+{"VERSION":3,"ADDED":302}	*
+{"VERSION":3,"DELETED":303}	* @param locFile
+{"VERSION":3,"ADDED":304}	* @param locFile
+{"VERSION":3,"DELETED":305}	* @param bufferedReader
+{"VERSION":3,"ADDED":306}	* @param bufferedReader
+{"VERSION":3,"DELETED":307}	* @param lineNumber line number for this code
+{"VERSION":3,"ADDED":308}	* @param lineNumber line number for this code
+{"VERSION":3,"DELETED":309}	* @param lineType line type for this loc
+{"VERSION":3,"ADDED":310}	* @param lineType line type for this loc
+{"VERSION":3,"DELETED":311}	* @throws IOException
+{"VERSION":3,"ADDED":312}	* @throws IOException
+{"VERSION":3,"DELETED":313}	*/
+{"VERSION":3,"ADDED":314}	*/
+{"VERSION":3,"DELETED":315}	private Integer fillBlock(BlockLOC loc, BufferedReader bufferedReader, String line, Integer lineNumber, LineType lineType) throws IOException {
+{"VERSION":3,"ADDED":316}	private Integer fillBlock(BlockLOC loc, BufferedReader bufferedReader, String line, Integer lineNumber, LineType lineType) throws IOException {
+{"VERSION":3,"DELETED":317}	List<LineCode> locs = new ArrayList<LineCode>();
+{"VERSION":3,"ADDED":318}	List<LineCode> locs = new ArrayList<LineCode>();
+{"VERSION":3,"DELETED":319}	fillLOC(loc, line, lineNumber, lineType);
+{"VERSION":3,"ADDED":320}	fillLOC(loc, line, lineNumber, lineType);
+{"VERSION":3,"DELETED":321}	loc.setLocs(locs);
+{"VERSION":3,"ADDED":322}	loc.setLocs(locs);
+{"VERSION":3,"DELETED":323}	lineNumber++;
+{"VERSION":3,"ADDED":324}	lineNumber++;
+{"VERSION":3,"DELETED":325}	line = bufferedReader.readLine();
+{"VERSION":3,"ADDED":326}	line = bufferedReader.readLine();
+{"VERSION":3,"DELETED":327}	Integer closeLines = 1;
+{"VERSION":3,"ADDED":328}	Integer closeLines = 1;
+{"VERSION":3,"DELETED":329}	while (closeLines != 0) {
+{"VERSION":3,"ADDED":330}	while (closeLines != 0) {
+{"VERSION":3,"DELETED":331}	line = line.trim();
+{"VERSION":3,"ADDED":332}	line = line.trim();
+{"VERSION":3,"DELETED":333}	if (isValidLine(line)) {
+{"VERSION":3,"ADDED":334}	if (isValidLine(line)) {
+{"VERSION":3,"DELETED":335}	if (line.endsWith("{")) {
+{"VERSION":3,"ADDED":336}	if (line.endsWith("{")) {
+{"VERSION":3,"DELETED":337}	closeLines++;
+{"VERSION":3,"ADDED":338}	closeLines++;
+{"VERSION":3,"DELETED":339}	LineCode lineCode = new LineCode();
+{"VERSION":3,"ADDED":340}	LineCode lineCode = new LineCode();
+{"VERSION":3,"DELETED":341}	fillLOC(lineCode, line, lineNumber, LineType.REGULAR_LINE);
+{"VERSION":3,"ADDED":342}	fillLOC(lineCode, line, lineNumber, LineType.REGULAR_LINE);
+{"VERSION":3,"DELETED":343}	locs.add(lineCode);
+{"VERSION":3,"ADDED":344}	locs.add(lineCode);
+{"VERSION":3,"DELETED":345}	lineNumber++;
+{"VERSION":3,"ADDED":346}	lineNumber++;
+{"VERSION":3,"DELETED":347}	} else {
+{"VERSION":3,"ADDED":348}	} else {
+{"VERSION":3,"DELETED":349}	if (line.endsWith("}")) {
+{"VERSION":3,"ADDED":350}	if (line.endsWith("}")) {
+{"VERSION":3,"DELETED":351}	closeLines--;
+{"VERSION":3,"ADDED":352}	closeLines--;
+{"VERSION":3,"DELETED":353}	line = bufferedReader.readLine();
+{"VERSION":3,"ADDED":354}	line = bufferedReader.readLine();
+{"VERSION":3,"DELETED":355}	lineNumber--;
+{"VERSION":3,"ADDED":356}	lineNumber--;
+{"VERSION":3,"DELETED":357}	return lineNumber;
+{"VERSION":3,"ADDED":358}	return lineNumber;
+{"VERSION":3,"DELETED":359}	/**
+{"VERSION":3,"ADDED":360}	/**
+{"VERSION":3,"DELETED":361}	* This method creates a loc
+{"VERSION":3,"ADDED":362}	* This method creates a loc
+{"VERSION":3,"DELETED":363}	*
+{"VERSION":3,"ADDED":364}	*
+{"VERSION":3,"DELETED":365}	* @param line in the file
+{"VERSION":3,"ADDED":366}	* @param line in the file
+{"VERSION":3,"DELETED":367}	* @param lineNumber
+{"VERSION":3,"ADDED":368}	* @param lineNumber
+{"VERSION":3,"DELETED":369}	* @param type
+{"VERSION":3,"ADDED":370}	* @param type
+{"VERSION":3,"DELETED":371}	* @return LineCode with the line info
+{"VERSION":3,"ADDED":372}	* @return LineCode with the line info
+{"VERSION":3,"DELETED":373}	*/
+{"VERSION":3,"ADDED":374}	*/
+{"VERSION":3,"DELETED":375}	private void fillLOC(LineCode lineCode, String line, Integer lineNumber, LineType type) {
+{"VERSION":3,"ADDED":376}	private void fillLOC(LineCode lineCode, String line, Integer lineNumber, LineType type) {
+{"VERSION":3,"DELETED":377}	lineCode.setLine(line);
+{"VERSION":3,"ADDED":378}	lineCode.setLine(line);
+{"VERSION":3,"DELETED":379}	lineCode.setLineNumber(lineNumber);
+{"VERSION":3,"ADDED":380}	lineCode.setLineNumber(lineNumber);
+{"VERSION":3,"DELETED":381}	lineCode.setLineType(type);
+{"VERSION":3,"ADDED":382}	lineCode.setLineType(type);
+{"VERSION":3,"DELETED":383}	/**
+{"VERSION":3,"ADDED":384}	/**
+{"VERSION":3,"DELETED":385}	* loops through the closeable elements, and invokes the close method, if
+{"VERSION":3,"ADDED":386}	* loops through the closeable elements, and invokes the close method, if
+{"VERSION":3,"DELETED":387}	* element is null, the loop continues
+{"VERSION":3,"ADDED":388}	* element is null, the loop continues
+{"VERSION":3,"DELETED":389}	*
+{"VERSION":3,"ADDED":390}	*
+{"VERSION":3,"DELETED":391}	* @param closeable elements to be closed
+{"VERSION":3,"ADDED":392}	* @param closeable elements to be closed
+{"VERSION":3,"DELETED":393}	*/
+{"VERSION":3,"ADDED":394}	*/
+{"VERSION":3,"DELETED":395}	private void closeStreams(Closeable... closeables) {
+{"VERSION":3,"ADDED":396}	private void closeStreams(Closeable... closeables) {
+{"VERSION":3,"DELETED":397}	for (Closeable closeable : closeables) {
+{"VERSION":3,"ADDED":398}	for (Closeable closeable : closeables) {
+{"VERSION":3,"DELETED":399}	if (closeable != null) {
+{"VERSION":3,"ADDED":400}	if (closeable != null) {
+{"VERSION":3,"DELETED":401}	try {
+{"VERSION":3,"ADDED":402}	try {
+{"VERSION":3,"DELETED":403}	closeable.close();
+{"VERSION":3,"ADDED":404}	closeable.close();
+{"VERSION":3,"DELETED":405}	} catch (IOException e) {
+{"VERSION":3,"ADDED":406}	} catch (IOException e) {

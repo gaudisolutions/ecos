@@ -8,6 +8,9 @@ import junit.framework.AssertionFailedError;
 import org.junit.Test;
 
 import com.uniandes.gaudi.change.counter.entity.LOCFile;
+import com.uniandes.gaudi.change.counter.entity.LOCFileStructure;
+import com.uniandes.gaudi.change.counter.entity.Language;
+import com.uniandes.gaudi.change.counter.factory.ServiceAbstractFactory;
 import com.uniandes.gaudi.change.counter.file.exception.FileServiceException;
 
 /**
@@ -28,6 +31,21 @@ public class JavaFileServiceTest {
 			
 			Assert.assertEquals("deben ser iguales", "TestClass", locFile.getName());
 			
+		} catch (FileServiceException e) {
+			throw new AssertionFailedError(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void readModifiedFileTest() {
+		
+		try {
+			LOCFileStructure locFileStructure = ServiceAbstractFactory
+					.getInstance(Language.JAVA).getModifiedFileService()
+					.readModifiedFile("modified");
+			
+			Assert.assertEquals("Debe contener 7 archivos", 5,
+					locFileStructure.getPackageFiles().keySet().size());
 		} catch (FileServiceException e) {
 			throw new AssertionFailedError(e.getMessage());
 		}
